@@ -1,0 +1,47 @@
+.opencode/commands/reset.md
+  s_5b1bd35d3769e4::t_04a0b36b2c1272 1-228
+.opencode/commands/add-template.md
+  s_5b1bd35d3769e4::t_089310a5df53c5 1-176
+README.md
+  s_5b1bd35d3769e4::t_f6a601a1f05328 7-9,21-295
+  s_5b1bd35d3769e4::t_22738b70deb848 11-12
+  s_5b1bd35d3769e4::t_c9ba208e389abc 4-6
+  s_5b1bd35d3769e4::t_527fb7406a7f33 10
+  s_5b1bd35d3769e4::t_f5307ddf5e7912 13-15,18-20
+opencode.json
+  s_5b1bd35d3769e4::t_bf63f6fb5aa0bb 1-14
+.opencode/commands/rank.md
+  s_5b1bd35d3769e4::t_8d56364c0a69b1 1-131
+.opencode/commands/setup.md
+  s_5b1bd35d3769e4::t_5e03f2ba1f9fa1 1-410
+.opencode/commands/apply.md
+  s_5b1bd35d3769e4::t_48cca307b32b95 1-286
+.opencode/agents/gemini-research-expert.md
+  s_5b1bd35d3769e4::t_b9dd9dcd192718 1-57
+CLAUDE.md
+  s_5b1bd35d3769e4::t_38ef2013594654 7
+  s_5b1bd35d3769e4::t_4f486ea97d8b48 82-86
+  s_5b1bd35d3769e4::t_1d5eb154f70990 4-6
+  s_5b1bd35d3769e4::t_0cb3eb18244004 8-10,79-81
+  s_5b1bd35d3769e4::t_8502f4144f3f1d 87-89
+.opencode/commands/expand.md
+  s_5b1bd35d3769e4::t_617f53fab5ab56 1-220
+.opencode/commands/add-portal.md
+  s_5b1bd35d3769e4::t_3fb40e07556316 1-157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "465edfbe4b8dc3e8daa0dc7ba951fc5c91e8bc06",
+  "prompts": {},
+  "sessions": {
+    "s_5b1bd35d3769e4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0c29e3821ffeIKNnjeypHHBZy6",
+        "model": "MiniMax-M3"
+      },
+      "human_author": "Sergio <sergio@local>"
+    }
+  }
+}
