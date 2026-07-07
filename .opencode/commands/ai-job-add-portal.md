@@ -122,7 +122,7 @@ Do not proceed to Step 5 until search, detail, and tests all pass.
 
 ## Step 5: Register
 
-1. Ask whether the user wants the new portal added to their `/scrape` search strategy. If yes, add the portal's site to the relevant query categories in `.claude/skills/job-scraper/search-queries.md` (site-specific queries, like the existing `jobindex.dk` entries) so `/scrape` includes it.
+1. Ask whether the user wants the new portal added to their `/scrape` search strategy. If yes, add the portal's site to the relevant query categories in `.agents/skills/job-scraper/search-queries.md` (site-specific queries, like the existing `jobindex.dk` entries) so `/scrape` includes it.
 2. Remind the user to add the install line for their own records if they maintain a fork README:
    ```bash
    cd .agents/skills/<name>/cli && bun install && cd ../../../..

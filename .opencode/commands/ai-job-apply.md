@@ -28,8 +28,8 @@ Follow these steps **exactly in order**. Do not skip steps.
 ## Step 1: DRAFTER - Evaluate Fit
 
 Read the evaluation framework:
-- `.claude/skills/job-application-assistant/04-job-evaluation.md`
-- `.claude/skills/job-application-assistant/01-candidate-profile.md`
+- `.agents/skills/job-application-assistant/04-job-evaluation.md`
+- `.agents/skills/job-application-assistant/01-candidate-profile.md`
 
 Using the framework from `04-job-evaluation.md`, evaluate the job posting against the candidate's profile. If the salary lookup tool is configured, run:
 
@@ -59,9 +59,9 @@ After presenting the evaluation, ask the user:
 You already have `01-candidate-profile.md` and `04-job-evaluation.md` in context from Step 1. **Do not re-read them.**
 
 Read only the reference files you do not yet have:
-- `.claude/skills/job-application-assistant/03-writing-style.md`
-- `.claude/skills/job-application-assistant/05-cv-templates.md`
-- `.claude/skills/job-application-assistant/06-cover-letter-templates.md`
+- `.agents/skills/job-application-assistant/03-writing-style.md`
+- `.agents/skills/job-application-assistant/05-cv-templates.md`
+- `.agents/skills/job-application-assistant/06-cover-letter-templates.md`
 
 Also read the most recent existing CV and cover letter files for concrete structural reference (one of each is enough):
 - Read any existing `cv/main_*.tex` file as a LaTeX template reference
@@ -107,10 +107,10 @@ Use WebSearch and WebFetch to research:
 
 ### 2. Read Reference Materials (content-critique only)
 Read these four files — and only these — to ground your critique:
-- `.claude/skills/job-application-assistant/01-candidate-profile.md`
-- `.claude/skills/job-application-assistant/02-behavioral-profile.md` — use this specifically to check whether the cover letter's voice matches the candidate's natural register. A "Collaborator" PI profile, for example, should not be given a combative, solo-hero tone; a "Persuader" profile should not be given over-hedged, apologetic phrasing.
-- `.claude/skills/job-application-assistant/03-writing-style.md`
-- `.claude/skills/job-application-assistant/04-job-evaluation.md`
+- `.agents/skills/job-application-assistant/01-candidate-profile.md`
+- `.agents/skills/job-application-assistant/02-behavioral-profile.md` — use this specifically to check whether the cover letter's voice matches the candidate's natural register. A "Collaborator" PI profile, for example, should not be given a combative, solo-hero tone; a "Persuader" profile should not be given over-hedged, apologetic phrasing.
+- `.agents/skills/job-application-assistant/03-writing-style.md`
+- `.agents/skills/job-application-assistant/04-job-evaluation.md`
 
 Do NOT read `05-cv-templates.md` or `06-cover-letter-templates.md` — those govern LaTeX structure the drafter already applied and are not needed for content critique.
 
@@ -266,10 +266,10 @@ After the final clean compile, delete the `.aux`, `.log`, `.out` files (keep the
 
 ## Step 6: Present Final Output
 
-Run the full verification checklist from `CLAUDE.md` now — this is the **only** verification pass in the workflow. Re-read both files once here to verify final state on disk matches your mental model after the Step 4 and Step 5 edits.
+Run the full verification checklist from `AGENTS.md` now — this is the **only** verification pass in the workflow. Re-read both files once here to verify final state on disk matches your mental model after the Step 4 and Step 5 edits.
 
 ### Verification Checklist
-Report pass/fail for each item in the CLAUDE.md verification checklist (factual accuracy, targeting, consistency, quality).
+Report pass/fail for each item in the AGENTS.md verification checklist (factual accuracy, targeting, consistency, quality).
 
 ### Key Tailoring Decisions
 Summarize 3-5 key decisions made to tailor the application:

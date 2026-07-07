@@ -30,8 +30,8 @@ Follow these steps **in order**.
 3. Select candidates: entries with status `new` (or all non-applied entries with `--all`), minus the exclusion set, filtered by the focus area if one was given.
 4. If no candidates remain, say so ("Nothing new to rank - run /scrape to find fresh postings") and stop.
 5. Read the scoring framework and profile **once**:
-   - `.claude/skills/job-application-assistant/04-job-evaluation.md`
-   - `.claude/skills/job-application-assistant/01-candidate-profile.md`
+   - `.agents/skills/job-application-assistant/04-job-evaluation.md`
+   - `.agents/skills/job-application-assistant/01-candidate-profile.md`
 
 State how many jobs will be ranked before proceeding.
 

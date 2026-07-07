@@ -4,7 +4,6 @@ description: >
   Assists with job applications: evaluating job postings, tailoring CVs, writing cover letters,
   and preparing for interviews. Triggers on keywords like: job posting, job application, CV,
   cover letter, resume, interview prep, job fit, career, application, apply, ansøgning, stilling
-allowed-tools: Read, Glob, Grep, WebFetch, WebSearch, Edit, Write, AskUserQuestion
 ---
 
 # Job Application Assistant

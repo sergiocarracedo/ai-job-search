@@ -1,14 +1,10 @@
-<p align="center">
-  <img src="claude_animation.gif" alt="AI Job Search Assistant" width="200">
-</p>
-
 # AI Job Search
 
 An AI-powered job application framework built on [opencode](https://opencode.ai). Fork it, fill in your profile, and let opencode evaluate job postings, tailor your CV, write cover letters, and prepare you for interviews.
 
 > Note: This is an independent open-source project and is not affiliated with, endorsed by, or maintained by Anthropic. Claude Code is referenced as historical attribution; the current toolchain is [opencode](https://opencode.ai).
 
-> **Origin**: Adaptation of [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search), originally built for Claude Code. Claude Code tooling (`.claude/commands/`, `.claude/agents/`, `.claude/settings.json`) replaced with the opencode equivalents (`.opencode/commands/`, `.opencode/agents/`, `opencode.json`). Workflow and skills unchanged.
+> **Origin**: Adaptation of [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search). Claude Code tooling replaced with opencode equivalents (`.opencode/commands/`, `.opencode/agents/`, `opencode.json`). Commands prefixed with `ai-job-` (e.g. `/ai-job-apply`, `/ai-job-scrape`). Workflow and skills unchanged.
 
 <p align="center">
   <a href="https://ko-fi.com/madslorentzen">
@@ -21,7 +17,7 @@ An AI-powered job application framework built on [opencode](https://opencode.ai)
 A structured workflow that turns opencode into a full-stack job application assistant. The core workflow (self-profiling, fit evaluation, and the drafter-reviewer application pipeline) is **language- and country-agnostic**. The job portal search skills are built for the Danish market (Jobindex, Jobnet, Akademikernes Jobbank, etc.), but the pattern is designed to be swapped for your local job boards.
 
 ```
-/setup          /scrape              /apply <url>
+/ai-job-setup          /ai-job-scrape              /ai-job-apply <url>
   |                |                     |
   v                v                     v
 Fill in        Search job           Evaluate fit
@@ -33,7 +29,7 @@ files ready    with fit ratings     (LaTeX, tailored)
                    |                     |
                    v                     v
                Pick a match         Reviewer agent critiques
-               -> /apply            -> Revise -> Final output
+               -> /ai-job-apply            -> Revise -> Final output
 ```
 
 The framework encodes career guidance best practices, including structured evaluation criteria, forward-looking cover letter framing, and optional salary benchmarking.
@@ -44,7 +40,7 @@ The framework encodes career guidance best practices, including structured evalu
 - Python 3.10+
 - [Bun](https://bun.sh) (for Danish job search CLI tools)
 - LaTeX distribution with `lualatex` and `xelatex`: [TeX Live](https://tug.org/texlive/) or [MiKTeX](https://miktex.org/). The CV compiles with `lualatex` (pdflatex often fails on modern MiKTeX installs with `fontawesome5` font-expansion errors); the cover letter compiles with `xelatex` because `cover.cls` requires `fontspec`.
-- Optional: `pdftotext` from [poppler](https://poppler.freedesktop.org/) (macOS: `brew install poppler`, Debian/Ubuntu: `apt install poppler-utils`, Windows: `choco install poppler`) — used by `/apply`'s ATS parseability check on the compiled CV. If missing, the check degrades gracefully to a visual keyword review.
+- Optional: `pdftotext` from [poppler](https://poppler.freedesktop.org/) (macOS: `brew install poppler`, Debian/Ubuntu: `apt install poppler-utils`, Windows: `choco install poppler`) — used by `/ai-job-apply`'s ATS parseability check on the compiled CV. If missing, the check degrades gracefully to a visual keyword review.
 
 ## Quick start
 
@@ -63,98 +59,102 @@ cd .agents/skills/jobdanmark-search/cli && bun install && cd ../../../..
 cd .agents/skills/jobindex-search/cli && bun install && cd ../../../..
 cd .agents/skills/jobnet-search/cli && bun install && cd ../../../..
 cd .agents/skills/linkedin-search/cli && bun install && cd ../../../..
+cd .agents/skills/remoteok-search/cli && bun install && cd ../../../..
+cd .agents/skills/weworkremotely-search/cli && bun install && cd ../../../..
 ```
 
-For `linkedin-search` the install is optional: it has zero runtime dependencies and runs with plain `bun`; `bun install` only pulls TypeScript dev types.
+For `linkedin-search`, `remoteok-search`, and `weworkremotely-search` the install is optional: they have zero runtime dependencies and run with plain `bun`; `bun install` only pulls TypeScript dev types.
 
 ### 3. Set up your profile
 
 ```bash
 opencode
 # Then inside opencode:
-/setup
+/ai-job-setup
 ```
 
-`/setup` offers three paths: read your `documents/` folder if you have one populated (CV PDF, LinkedIn export, diplomas, reference letters, past applications), import a single CV pasted in chat, or walk through an interview. It auto-detects what you have and asks. Documents-folder mode is idempotent and safe to re-run as you add more material; see `documents/README.md` for the layout.
+`/ai-job-setup` offers three paths: read your `documents/` folder if you have one populated (CV PDF, LinkedIn export, diplomas, reference letters, past applications), import a single CV pasted in chat, or walk through an interview. It auto-detects what you have and asks. Documents-folder mode is idempotent and safe to re-run as you add more material; see `documents/README.md` for the layout.
 
 ### 4. Search for jobs
 
 ```bash
-/scrape
+/ai-job-scrape
 ```
 
-This searches multiple job portals for positions matching your profile, deduplicates results, and presents them sorted by fit. Pick a match to run `/apply` on it directly — or, when a scrape returns more jobs than you want to eyeball, run `/rank` to batch-score them all against the fit framework and get a ranked shortlist first.
+This searches multiple job portals for positions matching your profile, deduplicates results, and presents them sorted by fit. Pick a match to run `/ai-job-apply` on it directly — or, when a scrape returns more jobs than you want to eyeball, run `/ai-job-rank` to batch-score them all against the fit framework and get a ranked shortlist first.
 
 ### 5. Apply to a job
 
 ```bash
-/apply https://jobindex.dk/job/1234567
+/ai-job-apply https://jobindex.dk/job/1234567
 ```
 
 If the URL can't be fetched (some job portals block automated access), you can paste the job description directly instead:
 
 ```bash
-/apply <paste the full job description here>
+/ai-job-apply <paste the full job description here>
 ```
 
 This runs the full workflow: evaluate fit, draft CV + cover letter, review with a second agent, revise, and present the final output.
 
 ## Other commands
 
-`/setup`, `/scrape`, and `/apply` form the core workflow. Five more commands extend it once your profile is in place:
+`/ai-job-setup`, `/ai-job-scrape`, and `/ai-job-apply` form the core workflow. Five more commands extend it once your profile is in place:
 
-- **`/rank`** bridges `/scrape` and `/apply`: it batch-scores all newly scraped postings against the fit framework (parallel agents fetch each posting and score the five evaluation dimensions) and returns a ranked shortlist with honest per-job strengths and gaps. Deal-breakers veto, deadlines get urgency flags, dead postings get marked expired. Pick a number and it hands off to the full `/apply` workflow.
-- **`/expand`** enriches your profile by scanning public sources you've already linked in it (GitHub repos, portfolio site, Kaggle, Google Scholar) and looking up syllabi for named courses and certifications. Discovered competencies are added to your profile with a source tag. Useful right after `/setup` to surface skills that documents alone don't make explicit.
-- **`/upskill`** analyzes the gap between your profile and your tracked job postings (or a single posting via `/upskill <URL>`). Produces a prioritized heatmap of skill gaps and a learning plan with web-searched study resources and time estimates. Useful for career planning between applications.
-- **`/add-template`** registers your own LaTeX CV or cover letter template in place of the stock ones. It captures the template's instructions (compile engine, fonts, style rules, page limit), runs a mandatory test compile, and wires the template into `/apply`. See [LaTeX templates](#latex-templates) below.
-- **`/add-portal`** generates a job-portal search skill for a job board in your market. It investigates the portal (search URL pattern, result structure, access rules), scaffolds the CLI skill from the same structure as the shipped ones, and test-runs a live query before registering. See [Job search tools](#job-search-tools) below.
+- **`/ai-job-rank`** bridges `/ai-job-scrape` and `/ai-job-apply`: it batch-scores all newly scraped postings against the fit framework (parallel agents fetch each posting and score the five evaluation dimensions) and returns a ranked shortlist with honest per-job strengths and gaps. Deal-breakers veto, deadlines get urgency flags, dead postings get marked expired. Pick a number and it hands off to the full `/ai-job-apply` workflow.
+- **`/ai-job-expand`** enriches your profile by scanning public sources you've already linked in it (GitHub repos, portfolio site, Kaggle, Google Scholar) and looking up syllabi for named courses and certifications. Discovered competencies are added to your profile with a source tag. Useful right after `/ai-job-setup` to surface skills that documents alone don't make explicit.
+- **`/ai-job-upskill`** analyzes the gap between your profile and your tracked job postings (or a single posting via `/ai-job-upskill <URL>`). Produces a prioritized heatmap of skill gaps and a learning plan with web-searched study resources and time estimates. Useful for career planning between applications.
+- **`/ai-job-add-template`** registers your own LaTeX CV or cover letter template in place of the stock ones. It captures the template's instructions (compile engine, fonts, style rules, page limit), runs a mandatory test compile, and wires the template into `/ai-job-apply`. See [LaTeX templates](#latex-templates) below.
+- **`/ai-job-add-portal`** generates a job-portal search skill for a job board in your market. It investigates the portal (search URL pattern, result structure, access rules), scaffolds the CLI skill from the same structure as the shipped ones, and test-runs a live query before registering. See [Job search tools](#job-search-tools) below.
 
-`/reset` is also available, see [Starting over](#starting-over) below.
+`/ai-job-reset` is also available, see [Starting over](#starting-over) below.
 
 ## File structure
 
 ```
 ai-job-search/
-├── CLAUDE.md                          # Main candidate profile + workflow rules
+├── AGENTS.md                          # Main candidate profile + workflow rules
 ├── opencode.json                      # opencode project config (permissions, model)
-├── .claude/
-│   └── skills/
-│       ├── job-application-assistant/  # Core application skill
-│       │   ├── SKILL.md               # Skill definition
-│       │   ├── 01-candidate-profile.md # Your education, experience, skills
-│       │   ├── 02-behavioral-profile.md# PI/DISC/personality assessment
-│       │   ├── 03-writing-style.md    # Tone, structure, do's and don'ts
-│       │   ├── 04-job-evaluation.md   # Scoring framework for job fit
-│       │   ├── 05-cv-templates.md     # LaTeX CV structure + tailoring rules
-│       │   ├── 06-cover-letter-templates.md # LaTeX cover letter templates
-│       │   └── 07-interview-prep.md   # STAR examples + interview framework
-│       ├── job-scraper/               # Job search orchestration
-│       └── upskill/                   # /upskill skill gap analysis and learning plan
 ├── .opencode/
 │   ├── commands/
-│   │   ├── apply.md                   # /apply workflow (drafter-reviewer)
-│   │   ├── setup.md                   # /setup onboarding (documents folder, CV import, or interview)
-│   │   ├── expand.md                  # /expand competency enrichment from documents and online presence
-│   │   ├── add-template.md            # /add-template register custom LaTeX templates
-│   │   ├── add-portal.md              # /add-portal generate a job-portal search skill for your market
-│   │   ├── rank.md                    # /rank triage scraped jobs into a ranked shortlist
-│   │   └── reset.md                   # /reset wipe profile data or documents folder
+│   │   ├── ai-job-apply.md           # /ai-job-apply workflow (drafter-reviewer)
+│   │   ├── ai-job-setup.md            # /ai-job-setup onboarding (documents folder, CV import, or interview)
+│   │   ├── ai-job-expand.md           # /ai-job-expand competency enrichment from documents and online presence
+│   │   ├── ai-job-rank.md             # /ai-job-rank triage scraped jobs into a ranked shortlist
+│   │   ├── ai-job-add-template.md     # /ai-job-add-template register custom LaTeX templates
+│   │   ├── ai-job-add-portal.md       # /ai-job-add-portal generate a job-portal search skill for your market
+│   │   ├── ai-job-reset.md            # /ai-job-reset wipe profile data or documents folder
+│   │   ├── ai-job-scrape.md           # /ai-job-scrape search jobs across multiple portals
+│   │   └── ai-job-upskill.md         # /ai-job-upskill skill gap analysis and learning plan
 │   └── agents/
-│       └── gemini-research-expert.md  # Research subagent (company / market / salary)
-├── .agents/skills/                    # Job portal CLI tools
-│   ├── jobbank-search/                # Akademikernes Jobbank (Denmark)
-│   ├── jobdanmark-search/             # Jobdanmark.dk (Denmark)
-│   ├── jobindex-search/               # Jobindex.dk (Denmark)
-│   ├── jobnet-search/                 # Jobnet.dk (Denmark, government portal)
-│   └── linkedin-search/               # LinkedIn public job listings (country-agnostic)
+│       └── gemini-research-expert.md # Research subagent (company / market / salary)
+├── .agents/skills/                    # AI skills (application + job portal CLI tools)
+│   ├── job-application-assistant/      # Core application skill
+│   │   ├── SKILL.md                  # Skill definition
+│   │   ├── 01-candidate-profile.md   # Your education, experience, skills
+│   │   ├── 02-behavioral-profile.md  # PI/DISC/personality assessment
+│   │   ├── 03-writing-style.md       # Tone, structure, do's and don'ts
+│   │   ├── 04-job-evaluation.md      # Scoring framework for job fit
+│   │   ├── 05-cv-templates.md        # LaTeX CV structure + tailoring rules
+│   │   ├── 06-cover-letter-templates.md # LaTeX cover letter templates
+│   │   └── 07-interview-prep.md      # STAR examples + interview framework
+│   ├── job-scraper/                  # Job search orchestration
+│   ├── upskill/                      # /ai-job-upskill skill gap analysis and learning plan
+│   ├── jobbank-search/               # Akademikernes Jobbank (Denmark)
+│   ├── jobdanmark-search/            # Jobdanmark.dk (Denmark)
+│   ├── jobindex-search/              # Jobindex.dk (Denmark)
+│   ├── jobnet-search/                # Jobnet.dk (Denmark, government portal)
+│   ├── linkedin-search/              # LinkedIn public job listings (country-agnostic)
+│   ├── remoteok-search/             # RemoteOK remote jobs (JSON API)
+│   └── weworkremotely-search/       # We Work Remotely (HTML scraping)
 ├── cv/
 │   └── main_example.tex               # moderncv LaTeX template
 ├── cover_letters/
 │   ├── cover.cls                      # Custom cover letter LaTeX class
 │   └── OpenFonts/                     # Lato + Raleway fonts
-├── templates/                         # Custom templates registered via /add-template
+├── templates/                         # Custom templates registered via /ai-job-add-template
 │   └── README.md                      # Folder layout instructions
-├── documents/                         # Career source materials for /setup Path A and /expand
+├── documents/                         # Career source materials for /ai-job-setup Path A and /ai-job-expand
 │   ├── README.md                      # Folder layout instructions
 │   ├── cv/                            # Master CV (PDF or .tex)
 │   ├── linkedin/                      # LinkedIn profile export (PDF)
@@ -166,14 +166,14 @@ ai-job-search/
 │   ├── convert_salary_excel.py        # Convert salary Excel to JSON
 │   └── README_SALARY_TOOL.md          # Salary tool setup instructions
 ├── job_scraper/                       # Scraper state (seen jobs, results)
-├── upskill/                           # /upskill report output (markdown reports per run)
+├── upskill/                           # /ai-job-upskill report output (markdown reports per run)
 ├── job_search_tracker.csv             # Application tracking spreadsheet
 └── SETUP.md                           # Detailed setup guide
 ```
 
-## How `/apply` works
+## How `/ai-job-apply` works
 
-The `/apply` command runs a **drafter-reviewer workflow** with mandatory PDF compilation:
+The `/ai-job-apply` command runs a **drafter-reviewer workflow** with mandatory PDF compilation:
 
 1. **Parse** the job posting (URL or text)
 2. **Evaluate fit** against your profile (skills, experience, culture, location, career alignment)
@@ -188,8 +188,8 @@ All claims in the CV and cover letter are verified against your actual profile. 
 
 ### What makes this workflow different
 
-- **PDF verification loop.** Most LaTeX-resume templates produce "looks fine in the .tex" output that breaks in the PDF: job titles orphan to the next page, cover letters spill onto page 2, bullet fonts silently fall back to the body font. The `/apply` command compiles and visually inspects every PDF and applies targeted fixes (`\needspace`, `\enlargethispage`, font-matching wrappers for list items) until the layout is clean. This runs automatically on every application.
-- **ATS verification on the PDF text layer.** An ATS reads the PDF's embedded text, not the rendered page — and LaTeX can silently produce PDFs whose text extracts as garbage (icon glyphs where the email should be, interleaved lines from multi-column layouts). `/apply` extracts the compiled CV's text layer with `pdftotext` and verifies contact details, reading order, and the posting's keyword coverage against what a parser actually sees. Honesty rule enforced: a keyword the profile doesn't support is acknowledged as a gap, never stuffed in.
+- **PDF verification loop.** Most LaTeX-resume templates produce "looks fine in the .tex" output that breaks in the PDF: job titles orphan to the next page, cover letters spill onto page 2, bullet fonts silently fall back to the body font. The `/ai-job-apply` command compiles and visually inspects every PDF and applies targeted fixes (`\needspace`, `\enlargethispage`, font-matching wrappers for list items) until the layout is clean. This runs automatically on every application.
+- **ATS verification on the PDF text layer.** An ATS reads the PDF's embedded text, not the rendered page — and LaTeX can silently produce PDFs whose text extracts as garbage (icon glyphs where the email should be, interleaved lines from multi-column layouts). `/ai-job-apply` extracts the compiled CV's text layer with `pdftotext` and verifies contact details, reading order, and the posting's keyword coverage against what a parser actually sees. Honesty rule enforced: a keyword the profile doesn't support is acknowledged as a gap, never stuffed in.
 - **Relevance-weighted CV cutting.** When a CV overflows 2 pages, the workflow does not cut mechanically from the "oldest" section. It scores each candidate line by (a) relevance to the target posting, (b) uniqueness in the document, and (c) whether the cover letter depends on it, and cuts the lowest-total-score line first. An older-role bullet that hits posting keywords survives ahead of a recent-role bullet that does not.
 - **Drafter-reviewer separation.** The drafter writes; a second opencode subagent (`gemini-research-expert`), spawned with a fresh context, researches the company and critiques the drafts. The drafter then revises. This catches missed keywords, weak framing, and generic language that a single pass often leaves in.
 - **Token-efficient reviewer dispatch.** The reviewer agent receives drafts inline rather than re-reading them, and the verification checklist runs once at the end of the workflow rather than being duplicated by both agents. Note: the new compile-and-inspect step in Step 5 spends some of those savings on PDF rendering and layout iteration — the workflow trades some end-to-end token cost for a real reduction in broken PDFs reaching the user.
@@ -198,7 +198,7 @@ All claims in the CV and cover letter are verified against your actual profile. 
 
 ### Which files to edit manually
 
-If you prefer editing files directly instead of using `/setup`:
+If you prefer editing files directly instead of using `/ai-job-setup`:
 
 | File | What to change |
 |------|---------------|
@@ -215,7 +215,7 @@ If you prefer editing files directly instead of using `/setup`:
 As your priorities evolve, you can reconfigure just the job search without re-running the full profile setup:
 
 ```
-/setup --section search
+/ai-job-setup --section search
 ```
 
 This re-runs the search configuration interview: which roles to target, which skills to search for, which locations, and which portals. It also suggests role types you may not have considered based on your profile.
@@ -227,14 +227,14 @@ The CV uses [moderncv](https://ctan.org/pkg/moderncv) (banking style). The cover
 To use your own template instead, run:
 
 ```
-/add-template
+/ai-job-add-template
 ```
 
-Point it at your `.tex` file (plus any `.cls`/`.sty` files or bundled fonts). The command interviews you for the template's instructions — compile engine, fonts and where they live, style rules to preserve, hard page limit — stores everything under `templates/`, runs a mandatory test compile, and activates the template so `/apply` drafts from it. Templates are stored with `[PLACEHOLDER]` tokens instead of personal data, so they're safe to commit and share.
+Point it at your `.tex` file (plus any `.cls`/`.sty` files or bundled fonts). The command interviews you for the template's instructions — compile engine, fonts and where they live, style rules to preserve, hard page limit — stores everything under `templates/`, runs a mandatory test compile, and activates the template so `/ai-job-apply` drafts from it. Templates are stored with `[PLACEHOLDER]` tokens instead of personal data, so they're safe to commit and share.
 
-- `/add-template --list` shows registered templates
-- `/add-template --use <name>` switches between them
-- `/add-template --use default` reverts to the stock moderncv / cover.cls templates
+- `/ai-job-add-template --list` shows registered templates
+- `/ai-job-add-template --use <name>` switches between them
+- `/ai-job-add-template --use default` reverts to the stock moderncv / cover.cls templates
 
 If you prefer doing it by hand, the manual route still works: update the guidance in `05-cv-templates.md` and `06-cover-letter-templates.md`.
 
@@ -243,7 +243,7 @@ If you prefer doing it by hand, the manual route still works: update the guidanc
 The four Danish CLI tools in `.agents/skills/` (Jobbank, Jobdanmark, Jobindex, Jobnet) demonstrate the pattern for building a job-portal integration for a specific market. If you're in a different country, run:
 
 ```
-/add-portal
+/ai-job-add-portal
 ```
 
 Give it your local job board's URL. The command investigates the portal (search-URL pattern, result-page structure, robots.txt/access rules), scaffolds a CLI skill with the same structure, commands, and output contract as the shipped ones, and test-runs a live query before registering anything. Auth-walled portals are declined, and portals with restrictive terms get a prominent personal-use-only warning in the generated skill. The generated skill is market-specific and lives in your fork; the generator itself is the universal part.
@@ -259,12 +259,12 @@ The salary tool works with any salary data you provide (union statistics, Glassd
 To wipe your profile data and start fresh:
 
 ```
-/reset profile    # clears skill files, preserves framework rules
-/reset documents  # deletes files from documents/ folder
-/reset all        # both
+/ai-job-reset profile    # clears skill files, preserves framework rules
+/ai-job-reset documents  # deletes files from documents/ folder
+/ai-job-reset all        # both
 ```
 
-`/reset` shows exactly what will be deleted and requires you to type `RESET` to confirm. Nothing is deleted until you do.
+`/ai-job-reset` shows exactly what will be deleted and requires you to type `RESET` to confirm. Nothing is deleted until you do.
 
 ## Tips for better results
 
@@ -274,7 +274,7 @@ The single biggest factor in output quality is how much detail you put into your
 
 - **Role descriptions:** Don't just list job titles. Describe what you actually did in each position: specific projects, tools used, responsibilities, and measurable achievements. The more material you provide, the more precisely the system can reframe your experience for different roles.
 - **Skills in context:** Instead of listing "Python" or "project management," describe how and where you applied them. "Built ML pipelines for customer churn prediction in Python using scikit-learn" gives the system far more to work with than "Python, machine learning."
-- **All onboarding paths work:** Whether you point `/setup` at your `documents/` folder, paste a single CV, or walk through the interview, the principle is the same: richer input produces sharper output.
+- **All onboarding paths work:** Whether you point `/ai-job-setup` at your `documents/` folder, paste a single CV, or walk through the interview, the principle is the same: richer input produces sharper output.
 
 ### Career path discovery
 
@@ -283,7 +283,7 @@ The framework supports two distinct modes of job searching:
 - **Explicit targeting:** You know which roles or sectors you want. The system helps refine and prioritize based on fit.
 - **Latent opportunity discovery:** By analyzing your full history (not just job titles, but the actual work you did), the system can surface career paths you haven't considered. Transferable skills that map to unexpected industries, patterns in what you enjoyed or excelled at, or emerging roles that combine your domain expertise with new technology.
 
-To get the most from this, invest time during `/setup` in describing not just your experience, but what energized you, what drained you, and what you'd want more of. This context directly shapes how the system evaluates fit and which roles it surfaces during `/scrape`.
+To get the most from this, invest time during `/ai-job-setup` in describing not just your experience, but what energized you, what drained you, and what you'd want more of. This context directly shapes how the system evaluates fit and which roles it surfaces during `/ai-job-scrape`.
 
 ## Acknowledgements
 
