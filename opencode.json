@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "skill": {
+      "job-application-assistant": "allow"
+    },
+    "bash": {
+      "bun run *": "allow",
+      "python salary_lookup.py *": "allow",
+      "python3 salary_lookup.py *": "allow",
+      "pdftotext *": "allow"
+    }
+  }
+}
