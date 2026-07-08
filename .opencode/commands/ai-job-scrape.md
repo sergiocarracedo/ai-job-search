@@ -2,7 +2,7 @@
 description: Search for jobs across configured job portals by market. Asks for market (Denmark/Spain) and remote, then dispatches to the appropriate skill.
 ---
 
-# /scrape - Search Jobs Across Market-Specific Portals
+# /ai-job-scrape - Search Jobs Across Market-Specific Portals
 
 You are searching for jobs across configured job portals. Follow this workflow:
 
@@ -21,53 +21,58 @@ Wait for the user's response before continuing.
 
 ## Step 2: Parse Response and Dispatch
 
-Parse the user's response and dispatch to the relevant skills/CLI tools:
+Parse the user's response and dispatch to the relevant skills/CLI tools in parallel.
 
 ### Denmark
-Run the following in parallel:
 ```bash
-# Jobindex
-cd .agents/skills/jobindex-search/cli && bun install > /dev/null 2>&1 && bun run src/cli.ts search --query "<keywords from search-queries.md>" --jobage 14 --sort date --format json
+cd .agents/skills/jobindex-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords from .agents/skills/job-scraper/search-queries.md>" --jobage 14 --sort date --format json
 
-# Jobbank
-cd .agents/skills/jobbank-search/cli && bun install > /dev/null 2>&1 && bun run src/cli.ts search --query "<keywords>" --jobage 14 --format json
+cd .agents/skills/jobbank-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --jobage 14 --format json
 
-# Jobdanmark
-cd .agents/skills/jobdanmark-search/cli && bun install > /dev/null 2>&1 && bun run src/cli.ts search --query "<keywords>" --jobage 14 --format json
+cd .agents/skills/jobdanmark-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --jobage 14 --format json
 
-# Jobnet
-cd .agents/skills/jobnet-search/cli && bun install > /dev/null 2>&1 && bun run src/cli.ts search --query "<keywords>" --jobage 14 --format json
+cd .agents/skills/jobnet-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --jobage 14 --format json
 ```
 
-Use keywords from `.agents/skills/job-scraper/search-queries.md` (Priority 1 and 2 categories).
+Use Priority 1 (and optionally Priority 2) keywords from `.agents/skills/job-scraper/search-queries.md`. Extract 3-5 of the most important role/skill terms.
 
 ### Spain
 ```bash
-cd .agents/skills/linkedin-search/cli && bun run src/cli.ts search --query "<keywords>" --location "Spain" --jobage 14 --format json
+cd .agents/skills/linkedin-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --location "Spain" --jobage 14 --format json
 ```
 
 ### Remote
 ```bash
-# RemoteOK
-cd .agents/skills/remoteok-search/cli && bun install > /dev/null 2>&1 && bun run src/cli.ts search --query "<keywords>" --format json
+cd .agents/skills/remoteok-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --format json
 
-# We Work Remotely
-cd .agents/skills/weworkremotely-search/cli && bun install > /dev/null 2>&1 && bun run src/cli.ts search --query "<keywords>" --format json
+cd .agents/skills/weworkremotely-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --format json
 ```
 
-## Step 3: Deduplicate and Present Results
+**Note:** All CLI tools run TypeScript directly with `bun run` — no `bun install` step needed. `bun install` only pulls dev types and is not required at runtime.
 
-1. Read `job_scraper/seen_jobs.json` to exclude already-seen jobs
-2. Merge results from all sources, removing exact duplicates (same title + company)
-3. Present in a table sorted by fit (infer fit from keyword match against search-queries.md priorities)
+## Step 3: Merge, Deduplicate & Present
+
+1. Parse all JSON outputs from the tools that ran
+2. Skip any tool that returned an error or empty results
+3. Deduplicate: skip jobs where the URL or company+title combo already exists in `job_scraper/seen_jobs.json`
+4. Skip jobs where company+role already appears in `job_search_tracker.csv`
+5. Sort by fit (infer from keyword match against search-queries.md priorities)
+
+Present:
 
 ```
 ## Job Search Results — YYYY-MM-DD
 
 Found X new positions across [selected markets].
 
-| # | Market | Title | Company | Location | Posted | URL |
-|---|--------|-------|---------|----------|--------|-----|
+| # | Market | Fit | Title | Company | Location | Posted | URL |
+|---|--------|-----|-------|---------|----------|--------|-----|
+| 1 | Denmark | High | ... | ... | ... | ... | [Link](...) |
 ```
 
-After presenting, suggest running `/ai-job-rank` if more than ~5 jobs were found, and offer to run `/ai-job-apply` on any specific job.
+After presenting, ask:
+> "Want me to evaluate any of these in detail? Just give me the number(s)."
+
+If the user picks a number, invoke the **job-application-assistant** skill.
+
+If the run found many new jobs (8+), also suggest `/ai-job-rank`.
