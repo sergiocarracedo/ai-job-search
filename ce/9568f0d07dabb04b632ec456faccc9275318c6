@@ -1,0 +1,33 @@
+.opencode/commands/ai-job-expand.md
+  s_5b1bd35d3769e4::t_84a237ddad9b66 28-29,36-37,44-45,50-51
+README.md
+  s_5b1bd35d3769e4::t_84a237ddad9b66 76,163,267,281
+SETUP.md
+  s_5b1bd35d3769e4::t_84a237ddad9b66 115
+data/documents/README.md
+  s_5b1bd35d3769e4::t_61b39631178ccc 114-118
+  s_5b1bd35d3769e4::t_39be36202add81 10
+  s_5b1bd35d3769e4::t_89c26c923f635f 3
+  s_5b1bd35d3769e4::t_043c780e6c390e 91-92
+  s_5b1bd35d3769e4::t_39bc3c9ee43d55 144
+.opencode/commands/ai-job-reset.md
+  s_5b1bd35d3769e4::t_84a237ddad9b66 18,27,75,80,83,86,89,92,95,193,196-200,222,225,228
+.opencode/commands/ai-job-setup.md
+  s_5b1bd35d3769e4::t_84a237ddad9b66 17,21,27,29,37,45,53,59,65,79,403
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ce9568f0d07dabb04b632ec456faccc9275318c6",
+  "prompts": {},
+  "sessions": {
+    "s_5b1bd35d3769e4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0c29e3821ffeIKNnjeypHHBZy6",
+        "model": "MiniMax-M3"
+      },
+      "human_author": "Sergio <sergio@local>"
+    }
+  }
+}
