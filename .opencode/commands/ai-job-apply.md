@@ -29,7 +29,7 @@ Follow these steps **exactly in order**. Do not skip steps.
 
 Read the evaluation framework:
 - `.agents/skills/job-application-assistant/04-job-evaluation.md`
-- `.agents/skills/job-application-assistant/01-candidate-profile.md`
+- `data/candidate-profile.md`
 
 Using the framework from `04-job-evaluation.md`, evaluate the job posting against the candidate's profile. If the salary lookup tool is configured, run:
 
@@ -56,7 +56,7 @@ After presenting the evaluation, ask the user:
 
 ## Step 2: DRAFTER - Draft CV + Cover Letter
 
-You already have `01-candidate-profile.md` and `04-job-evaluation.md` in context from Step 1. **Do not re-read them.**
+You already have `data/candidate-profile.md` and `04-job-evaluation.md` in context from Step 1. **Do not re-read them.**
 
 Read only the reference files you do not yet have:
 - `.agents/skills/job-application-assistant/03-writing-style.md`
@@ -64,17 +64,17 @@ Read only the reference files you do not yet have:
 - `.agents/skills/job-application-assistant/06-cover-letter-templates.md`
 
 Also read the most recent existing CV and cover letter files for concrete structural reference (one of each is enough):
-- Read any existing `cv/main_*.tex` file as a LaTeX template reference
-- Read any existing `cover_letters/cover_*.tex` or `cover_letters/Cover_*.tex` file as a template reference
+- Read any existing `data/cv/main_*.tex` file as a LaTeX template reference
+- Read any existing `data/cover-letters/cover_*.tex` or `data/cover-letters/Cover_*.tex` file as a template reference
 
-### CV (`cv/main_<company>.tex`)
+### CV (`data/cv/main_<company>.tex`)
 - Always in **English**
 - Follow the moderncv/banking format from `05-cv-templates.md`
 - Tailor the profile statement and experience bullets to the specific role
 - Reframe skills and achievements to match job requirements
 - Keep to 2 pages
 
-### Cover Letter (`cover_letters/cover_<company>_<role>.tex`)
+### Cover Letter (`data/cover-letters/cover_<company>_<role>.tex`)
 - **Match the language of the job posting** (Danish posting -> Danish cover letter, English posting -> English cover letter)
 - Follow the structure from `06-cover-letter-templates.md`
 - Use the `cover.cls` template
@@ -107,8 +107,8 @@ Use WebSearch and WebFetch to research:
 
 ### 2. Read Reference Materials (content-critique only)
 Read these four files — and only these — to ground your critique:
-- `.agents/skills/job-application-assistant/01-candidate-profile.md`
-- `.agents/skills/job-application-assistant/02-behavioral-profile.md` — use this specifically to check whether the cover letter's voice matches the candidate's natural register. A "Collaborator" PI profile, for example, should not be given a combative, solo-hero tone; a "Persuader" profile should not be given over-hedged, apologetic phrasing.
+- `data/candidate-profile.md`
+- `data/behavioral-profile.md` — use this specifically to check whether the cover letter's voice matches the candidate's natural register. A "Collaborator" PI profile, for example, should not be given a combative, solo-hero tone; a "Persuader" profile should not be given over-hedged, apologetic phrasing.
 - `.agents/skills/job-application-assistant/03-writing-style.md`
 - `.agents/skills/job-application-assistant/04-job-evaluation.md`
 
@@ -117,11 +117,11 @@ Do NOT read `05-cv-templates.md` or `06-cover-letter-templates.md` — those gov
 ### 3. Drafts to Review
 Both drafts are provided inline below. Do NOT use the Read tool on the draft files — use these exact texts.
 
-<CV_DRAFT file="cv/main_<COMPANY>.tex">
+<CV_DRAFT file="data/cv/main_<COMPANY>.tex">
 <INSERT_CV_DRAFT_HERE>
 </CV_DRAFT>
 
-<COVER_LETTER_DRAFT file="cover_letters/cover_<COMPANY>_<ROLE>.tex">
+<COVER_LETTER_DRAFT file="data/cover-letters/cover_<COMPANY>_<ROLE>.tex">
 <INSERT_COVER_LETTER_DRAFT_HERE>
 </COVER_LETTER_DRAFT>
 
@@ -138,7 +138,7 @@ Return your feedback in **two parts**:
 A JSON array of concrete edits the drafter can apply directly without re-reading the files. Each edit is an object:
 ```json
 {
-  "file": "cv/main_<COMPANY>.tex" | "cover_letters/cover_<COMPANY>_<ROLE>.tex",
+  "file": "data/cv/main_<COMPANY>.tex" | "data/cover-letters/cover_<COMPANY>_<ROLE>.tex",
   "old_string": "<exact text currently in the draft>",
   "new_string": "<replacement text>",
   "reason": "<one-line rationale: keyword match / company angle / reframing / style>"
@@ -186,8 +186,8 @@ After all edits are applied, the two files on disk are the final drafts.
 ### 5a. Compile
 
 ```bash
-cd cv && lualatex -interaction=nonstopmode main_<company>.tex
-cd ../cover_letters && xelatex -interaction=nonstopmode cover_<company>_<role>.tex
+cd data/cv && lualatex -interaction=nonstopmode main_<company>.tex
+cd ../../data/cover-letters && xelatex -interaction=nonstopmode cover_<company>_<role>.tex
 ```
 
 - CV uses **lualatex** — pdflatex fails on modern MiKTeX with fontawesome5 font-expansion errors. lualatex handles the same sources cleanly.
@@ -199,13 +199,13 @@ If either compile fails, fix the error and re-compile until clean.
 
 Read both PDFs via the Read tool and verify:
 
-**CV (`cv/main_<company>.pdf`):**
+**CV (`data/cv/main_<company>.pdf`):**
 - [ ] Exactly 2 pages (not 1, not 3)
 - [ ] No orphaned `\cventry` titles — a job/education title line must never sit alone at the bottom of page 1 with its bullets on page 2. This is the most common failure.
 - [ ] Section headings are not isolated at the top of page 2 with only 1-2 lines below
 - [ ] No awkward whitespace gaps
 
-**Cover letter (`cover_letters/cover_<company>_<role>.pdf`):**
+**Cover letter (`data/cover-letters/cover_<company>_<role>.pdf`):**
 - [ ] Exactly 1 page
 - [ ] Signature block visible, not cut off or pushed to a second page
 - [ ] Bullet list font matches surrounding body text (both should be Raleway-Medium)
@@ -231,7 +231,7 @@ An ATS parser reads the PDF's embedded **text layer**, not the rendered page —
 **1. Extract the text layer:**
 
 ```bash
-cd cv && pdftotext -layout main_<company>.pdf main_<company>.txt
+cd data/cv && pdftotext -layout main_<company>.pdf main_<company>.txt
 ```
 
 Read the `.txt` file.
@@ -266,10 +266,10 @@ After the final clean compile, delete the `.aux`, `.log`, `.out` files (keep the
 
 ## Step 6: Present Final Output
 
-Run the full verification checklist from `AGENTS.md` now — this is the **only** verification pass in the workflow. Re-read both files once here to verify final state on disk matches your mental model after the Step 4 and Step 5 edits.
+Run the full verification checklist from `data/candidate-profile-export.md` now — this is the **only** verification pass in the workflow. Re-read both files once here to verify final state on disk matches your mental model after the Step 4 and Step 5 edits.
 
 ### Verification Checklist
-Report pass/fail for each item in the AGENTS.md verification checklist (factual accuracy, targeting, consistency, quality).
+Report pass/fail for each item in the data/candidate-profile-export.md verification checklist (factual accuracy, targeting, consistency, quality).
 
 ### Key Tailoring Decisions
 Summarize 3-5 key decisions made to tailor the application:
@@ -280,7 +280,7 @@ Summarize 3-5 key decisions made to tailor the application:
 
 ### Files Created
 List the files written:
-- `cv/main_<company>.tex`
-- `cover_letters/cover_<company>_<role>.tex`
+- `data/cv/main_<company>.tex`
+- `data/cover-letters/cover_<company>_<role>.tex`
 
 Tell the user: "Both files are ready for your review. Open them to check the final output before compiling."

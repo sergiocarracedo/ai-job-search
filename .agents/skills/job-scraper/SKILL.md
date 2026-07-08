@@ -31,9 +31,9 @@ Optional arguments:
 
 ### Step 0: Load State
 
-1. Read `job_scraper/seen_jobs.json` (create if missing — start with `{"seen": {}}`)
-2. Read `job_search_tracker.csv` to extract already-applied companies+roles
-3. Read `.agents/skills/job-scraper/search-queries.md` for the search strategy
+1. Read `data/scraper-state/seen_jobs.json` (create if missing — start with `{"seen": {}}`)
+2. Read `data/tracker.csv` to extract already-applied companies+roles
+3. Read `data/search-queries.md` for the search strategy
 
 ### Step 1: Determine Market
 
@@ -85,8 +85,8 @@ Use keywords from `search-queries.md` Priority 1 and 2 categories. If the user s
 
 1. Parse all JSON outputs from Step 2
 2. Skip any tool that returned an error or empty results
-3. Deduplicate: skip jobs where the URL or company+title combo already exists in `seen_jobs.json`
-4. Skip jobs where the company+role already appears in `job_search_tracker.csv`
+3. Deduplicate: skip jobs where the URL or company+title combo already exists in `data/scraper-state/seen_jobs.json`
+4. Skip jobs where the company+role already appears in `data/tracker.csv`
 
 ### Step 4: Quick Fit Assessment
 
@@ -98,7 +98,7 @@ For each new job, do a rapid fit check (NOT the full evaluation — just a quick
 
 ### Step 5: Store
 
-Add ALL fetched jobs (new and skipped) to `seen_jobs.json`:
+Add ALL fetched jobs (new and skipped) to `data/scraper-state/seen_jobs.json`:
 ```json
 {
   "seen": {
@@ -137,14 +137,14 @@ If the run found many new jobs (8+), also suggest `/ai-job-rank`.
 
 ### Step 7: Update Tracker (Optional)
 
-If the user decides to apply to any job, add a row to `job_search_tracker.csv`.
+If the user decides to apply to any job, add a row to `data/tracker.csv`.
 
 ---
 
 ## Important Rules
 
 1. **Never fabricate job postings.** Only present jobs returned by actual CLI tool runs.
-2. **Respect deduplication.** Always check `seen_jobs.json` AND `job_search_tracker.csv` before presenting.
+2. **Respect deduplication.** Always check `data/scraper-state/seen_jobs.json` AND `data/tracker.csv` before presenting.
 3. **Focus on configured geographic area.** Skip jobs that require relocation or are outside commute range.
 4. **Only open positions.** Skip postings with expired deadlines or those marked as closed.
 5. **Parallel runs.** Run all portal CLIs for a given market simultaneously — do not wait for one before starting the next.

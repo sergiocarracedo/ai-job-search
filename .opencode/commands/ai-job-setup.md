@@ -82,13 +82,13 @@ If every subfolder is empty, stop and tell the user to populate the folder. Poin
 
 Read these in parallel before extracting anything. You must know what is already there to make the merge intelligent.
 
-- `.agents/skills/job-application-assistant/01-candidate-profile.md`
-- `.agents/skills/job-application-assistant/02-behavioral-profile.md`
+- `data/candidate-profile.md`
+- `data/behavioral-profile.md`
 - `.agents/skills/job-application-assistant/03-writing-style.md`
 - `.agents/skills/job-application-assistant/04-job-evaluation.md`
 - `.agents/skills/job-application-assistant/05-cv-templates.md`
 - `.agents/skills/job-application-assistant/06-cover-letter-templates.md`
-- `.agents/skills/job-application-assistant/07-interview-prep.md`
+- `data/interview-star-examples.md`
 
 Hold this content in context throughout Path A. Do not re-read.
 
@@ -148,12 +148,12 @@ For each skill file, compare extracted document content against the current file
 
 **Inference rules** (apply when populating from inferred sources):
 
-- **`02-behavioral-profile.md`:** Source is LinkedIn About + recommendation letters. Extract recurring themes, adjectives, phrases about how the candidate works. Add only to "Strongest Behavioral Traits", "How [Candidate] Works Best", or "Management Style Preferences" sections. Do not overwrite existing scored assessments. Always label inferred additions: *[Inferred from LinkedIn About / Reference letter - review before relying on this]*
+- **`data/behavioral-profile.md`:** Source is LinkedIn About + recommendation letters. Extract recurring themes, adjectives, phrases about how the candidate works. Add only to "Strongest Behavioral Traits", "How [Candidate] Works Best", or "Management Style Preferences" sections. Do not overwrite existing scored assessments. Always label inferred additions: *[Inferred from LinkedIn About / Reference letter - review before relying on this]*
 - **`03-writing-style.md`:** Source is `cover_letter.tex` files. Extract recurring patterns. Add as observations under "## Patterns Observed in Past Applications". Do not modify existing rules. Only add if 2+ cover letters show a genuine pattern.
 - **`04-job-evaluation.md`:** Source is `job_posting.md` + `outcome.md` pairs. If an application reached interview or offer: note role type and sector as a confirmed strong-fit signal. If 2+ applications repeat a no-response or rejection pattern: note it. Add findings under "## Calibration from Past Applications". Do not modify the existing scoring framework.
 - **`05-cv-templates.md`:** Source is `cv_draft.tex` files. Extract any profile statement that does not already appear in templates. Label with: *[Used for: <company>_<role>]*
 - **`06-cover-letter-templates.md`:** Source is `cover_letter.tex` files. Extract opening patterns, bullet structures, closing formulations. Add only what is structurally distinct from existing templates.
-- **`07-interview-prep.md`:** Source is CV bullets, LinkedIn descriptions, reference letter quotes. Identify achievements not yet covered by an existing STAR example. Do NOT draft full STAR examples. Add stubs under "## STAR Candidates (Complete Manually)":
+- **`data/interview-star-examples.md`:** Source is CV bullets, LinkedIn descriptions, reference letter quotes. Identify achievements not yet covered by an existing STAR example. Do NOT draft full STAR examples. Add stubs under "## STAR Candidates (Complete Manually)":
 
 ```markdown
 ### [Achievement title]
@@ -226,7 +226,7 @@ Documents cover skills, experience, education, references, and behavioral signal
 - Commute or location constraints (if not visible from CV)
 - Job search configuration (use the questions from Path C Section 9 below)
 
-Then proceed to Step 3 to populate the non-skill files (`AGENTS.md`, `cv/main_example.tex`, `.agents/skills/job-scraper/search-queries.md`). Step 3 will detect that the seven skill files are already populated and skip those substeps.
+Then proceed to Step 3 to populate the non-skill files (`data/candidate-profile-export.md`, `data/cv/main_example.tex`, `data/search-queries.md`). Step 3 will detect that the seven skill files are already populated and skip those substeps.
 
 ---
 
@@ -332,13 +332,13 @@ This proactive suggestion step helps users discover career paths they might not 
 
 Once data collection is complete, generate or finish populating the following files. **For Path A**, the seven skill files are already populated by Step A7; check each before writing and skip if its content is no longer placeholder text.
 
-### 1. Update `AGENTS.md`
+### 1. Update `data/candidate-profile-export.md`
 Replace all `[PLACEHOLDER]` tokens with the user's actual information. Keep the structure, workflow, and verification checklist intact.
 
-### 2. Populate `01-candidate-profile.md` *(Path B and C; skip if Path A populated it)*
+### 2. Populate `data/candidate-profile.md` *(Path B and C; skip if Path A populated it)*
 Write the full candidate profile with structured sections: Identity, Education, Professional Experience, Independent Projects, Technical Skills, Publications, Awards, References.
 
-### 3. Populate `02-behavioral-profile.md` *(Path B and C; skip if Path A populated it)*
+### 3. Populate `data/behavioral-profile.md` *(Path B and C; skip if Path A populated it)*
 Write the behavioral profile based on assessment results or synthesized answers.
 
 ### 4. Update `04-job-evaluation.md` *(Path B and C; skip if Path A populated it)*
@@ -352,13 +352,13 @@ Update career goals and motivation filters with their actual preferences.
 ### 5. Update `05-cv-templates.md` *(Path B and C; skip if Path A populated it)*
 Add role-specific profile statement templates based on their background.
 
-### 6. Update `07-interview-prep.md` *(Path B and C; skip if Path A populated it)*
+### 6. Update `data/interview-star-examples.md` *(Path B and C; skip if Path A populated it)*
 Create STAR examples from their actual experience (at least 3-4 examples). Path A leaves STAR stubs under "## STAR Candidates (Complete Manually)" rather than full examples; if any stubs are present, mention them in Step 4 so the user knows to flesh them out.
 
-### 7. Update `cv/main_example.tex`
+### 7. Update `data/cv/main_example.tex`
 Replace placeholder personal data with their actual name, contact info, and add their education and most recent experience entries.
 
-### 8. Generate `.agents/skills/job-scraper/search-queries.md`
+### 8. Generate `data/search-queries.md`
 Replace all placeholder tokens in the search queries file with the user's actual information from Section 9 (or the equivalent follow-up questions in Path A's Step A7):
 - Replace `[YOUR_PRIMARY_ROLE_TYPE]`, `[YOUR_PRIMARY_JOB_TITLE]`, etc. with actual role titles
 - Replace `[YOUR_KEY_SKILL]`, `[YOUR_DOMAIN_KEYWORD_1]`, etc. with actual skills and domain terms
@@ -378,14 +378,14 @@ Present a summary:
 
 > **Setup complete!** Here's what was generated:
 >
-> - `AGENTS.md` - Your full candidate profile
-> - `.agents/skills/job-application-assistant/01-candidate-profile.md` - Structured profile
-> - `.agents/skills/job-application-assistant/02-behavioral-profile.md` - Behavioral assessment
+> - `data/candidate-profile-export.md` - Your full candidate profile
+> - `data/candidate-profile.md` - Structured profile
+> - `data/behavioral-profile.md` - Behavioral assessment
 > - `.agents/skills/job-application-assistant/04-job-evaluation.md` - Personalized evaluation framework
 > - `.agents/skills/job-application-assistant/05-cv-templates.md` - CV templates with your profile statements
-> - `.agents/skills/job-application-assistant/07-interview-prep.md` - STAR examples from your experience
-> - `cv/main_example.tex` - Your LaTeX CV template
-> - `.agents/skills/job-scraper/search-queries.md` - Job search queries for `/scrape`
+> - `data/interview-star-examples.md` - STAR examples from your experience
+> - `data/cv/main_example.tex` - Your LaTeX CV template
+> - `data/search-queries.md` - Job search queries for `/scrape`
 >
 > **Try it out:**
 > - Run `/scrape` to search for matching jobs right now
@@ -394,7 +394,7 @@ Present a summary:
 
 If Path A left any STAR stubs in `07-interview-prep.md`, also note:
 
-> Path A flagged [N] STAR candidate stubs in `07-interview-prep.md` that need your situation/task/action/result details before you use them in interviews.
+> Path A flagged [N] STAR candidate stubs in `data/interview-star-examples.md` that need your situation/task/action/result details before you use them in interviews.
 
 ---
 

@@ -8,7 +8,7 @@ description: Compare tracked job postings against your candidate profile to iden
 
 ## Invocation
 
-**`/ai-job-upskill`** — aggregate mode: analyses all jobs in `job_search_tracker.csv`
+**`/ai-job-upskill`** — aggregate mode: analyses all jobs in `data/tracker.csv`
 
 **`/ai-job-upskill <URL>`** — targeted mode: analyses a single job posting fetched from the URL
 
@@ -24,15 +24,15 @@ Check whether `$ARGUMENTS` contains a URL:
 ## Step 2: Load Data
 
 ### Aggregate mode
-1. Read `job_search_tracker.csv`. Extract all rows. Columns: `date, company, sector, role, role_type, channel, status, contact_person, fit_rating, notes, cv_file, cover_letter_file, source`
+1. Read `data/tracker.csv`. Extract all rows. Columns: `date, company, sector, role, role_type, channel, status, contact_person, fit_rating, notes, cv_file, cover_letter_file, source`
 2. For each row, note `role`, `company`, and `fit_rating`. The `fit_rating` column is a 0–100 score where 100 = perfect fit.
-3. Read `.agents/skills/job-application-assistant/01-candidate-profile.md` for the candidate's current skills.
-4. Check `upskill/` for the most recent aggregate report (`report-YYYY-MM-DD.md`) — if one exists, note its date for the diff in Step 8.
+3. Read `data/candidate-profile.md` for the candidate's current skills.
+4. Check `data/upskill-reports/` for the most recent aggregate report (`report-YYYY-MM-DD.md`) — if one exists, note its date for the diff in Step 8.
 
 ### Targeted mode
 1. Use WebFetch to retrieve the job posting from `$ARGUMENTS`.
 2. Extract: job title, company, required skills, preferred skills, responsibilities.
-3. Read `.agents/skills/job-application-assistant/01-candidate-profile.md` for the candidate's current skills.
+3. Read `data/candidate-profile.md` for the candidate's current skills.
 4. No tracker data is used in targeted mode.
 
 ## Step 3: Hard Skill Diff
@@ -48,7 +48,7 @@ Final score per skill: `sum of (fit_weight × occurrence)` across all jobs.
 Extract the explicit required and preferred skills from the fetched posting. List required before preferred; sort alphabetically within groups.
 
 ### Diff against profile
-Remove any skill already present in `01-candidate-profile.md`. Be generous — "Python" covers "Python scripting".
+Remove any skill already present in `data/candidate-profile.md`. Be generous — "Python" covers "Python scripting".
 
 What remains is the **hard skill gap list**.
 
@@ -122,10 +122,10 @@ If a previous aggregate report exists from Step 2:
 - **New gaps**: skills in the current heatmap not in the previous report
 
 ### Save the report
-- **Aggregate:** `upskill/report-YYYY-MM-DD.md`
-- **Targeted:** `upskill/report-YYYY-MM-DD-<company-slug>-<role-slug>.md`
+- **Aggregate:** `data/upskill-reports/report-YYYY-MM-DD.md`
+- **Targeted:** `data/upskill-reports/report-YYYY-MM-DD-<company-slug>-<role-slug>.md`
 
-Confirm: > "Report saved to `upskill/<filename>.md`."
+Confirm: > "Report saved to `data/upskill-reports/<filename>.md`."
 
 ## Important Rules
 

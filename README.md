@@ -113,7 +113,18 @@ This runs the full workflow: evaluate fit, draft CV + cover letter, review with 
 
 ```
 ai-job-search/
-├── AGENTS.md                          # Main candidate profile + workflow rules
+├── data/                              # Personal data (gitignored)
+│   ├── candidate-profile-export.md   # Main candidate profile + workflow rules
+│   ├── candidate-profile.md          # Structured profile
+│   ├── behavioral-profile.md         # Behavioral assessment
+│   ├── interview-star-examples.md    # STAR interview examples
+│   ├── search-queries.md             # Job search queries
+│   ├── tracker.csv                   # Application tracking
+│   ├── scraper-state/
+│   │   └── seen_jobs.json           # Deduplication state
+│   ├── cv/                          # CV files
+│   ├── cover-letters/               # Cover letter files
+│   └── upskill-reports/             # Upskill reports
 ├── opencode.json                      # opencode project config (permissions, model)
 ├── .opencode/
 │   ├── commands/
@@ -131,14 +142,13 @@ ai-job-search/
 ├── .agents/skills/                    # AI skills (application + job portal CLI tools)
 │   ├── job-application-assistant/      # Core application skill
 │   │   ├── SKILL.md                  # Skill definition
-│   │   ├── 01-candidate-profile.md   # Your education, experience, skills
-│   │   ├── 02-behavioral-profile.md  # PI/DISC/personality assessment
 │   │   ├── 03-writing-style.md       # Tone, structure, do's and don'ts
 │   │   ├── 04-job-evaluation.md      # Scoring framework for job fit
 │   │   ├── 05-cv-templates.md        # LaTeX CV structure + tailoring rules
-│   │   ├── 06-cover-letter-templates.md # LaTeX cover letter templates
-│   │   └── 07-interview-prep.md      # STAR examples + interview framework
-│   ├── job-scraper/                  # Job search orchestration
+│   │   └── 06-cover-letter-templates.md # LaTeX cover letter templates
+│   │       (personal data files live in data/)
+│   ├── job-scraper/                  # Job scraper orchestration skill (SKILL.md only)
+│   │   └── SKILL.md                  # Personal data lives in data/search-queries.md
 │   ├── upskill/                      # /ai-job-upskill skill gap analysis and learning plan
 │   ├── jobbank-search/               # Akademikernes Jobbank (Denmark)
 │   ├── jobdanmark-search/            # Jobdanmark.dk (Denmark)
@@ -147,11 +157,7 @@ ai-job-search/
 │   ├── linkedin-search/              # LinkedIn public job listings (country-agnostic)
 │   ├── remoteok-search/             # RemoteOK remote jobs (JSON API)
 │   └── weworkremotely-search/       # We Work Remotely (HTML scraping)
-├── cv/
-│   └── main_example.tex               # moderncv LaTeX template
-├── cover_letters/
-│   ├── cover.cls                      # Custom cover letter LaTeX class
-│   └── OpenFonts/                     # Lato + Raleway fonts
+
 ├── templates/                         # Custom templates registered via /ai-job-add-template
 │   └── README.md                      # Folder layout instructions
 ├── documents/                         # Career source materials for /ai-job-setup Path A and /ai-job-expand
@@ -165,9 +171,7 @@ ai-job-search/
 ├── tools/
 │   ├── convert_salary_excel.py        # Convert salary Excel to JSON
 │   └── README_SALARY_TOOL.md          # Salary tool setup instructions
-├── job_scraper/                       # Scraper state (seen jobs, results)
-├── upskill/                           # /ai-job-upskill report output (markdown reports per run)
-├── job_search_tracker.csv             # Application tracking spreadsheet
+
 └── SETUP.md                           # Detailed setup guide
 ```
 
@@ -202,7 +206,7 @@ If you prefer editing files directly instead of using `/ai-job-setup`:
 
 | File | What to change |
 |------|---------------|
-| `AGENTS.md` | Your full profile (name, education, experience, skills, goals) |
+| `data/candidate-profile-export.md` | Your full profile (name, education, experience, skills, goals) |
 | `01-candidate-profile.md` | Structured version of your CV data |
 | `02-behavioral-profile.md` | Your behavioral assessment or self-assessment |
 | `04-job-evaluation.md` | Skill match areas, career goals, motivation filters |

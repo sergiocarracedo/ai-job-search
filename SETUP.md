@@ -122,14 +122,14 @@ All three paths produce the same result: fully populated profile files.
 
 | File | Content |
 |------|---------|
-| `AGENTS.md` | Your full candidate profile |
-| `01-candidate-profile.md` | Structured education, experience, skills |
-| `02-behavioral-profile.md` | Behavioral assessment |
-| `04-job-evaluation.md` | Personalized skill match areas and career goals |
-| `05-cv-templates.md` | Profile statement templates for your background |
-| `07-interview-prep.md` | STAR examples from your experience |
-| `cv/main_example.tex` | Your LaTeX CV with actual details |
-| `search-queries.md` | Job search queries for `/ai-job-scrape` |
+| `data/candidate-profile-export.md` | Your full candidate profile |
+| `data/candidate-profile.md` | Structured education, experience, skills |
+| `data/behavioral-profile.md` | Behavioral assessment |
+| `.agents/skills/job-application-assistant/04-job-evaluation.md` | Personalized skill match areas and career goals |
+| `.agents/skills/job-application-assistant/05-cv-templates.md` | Profile statement templates for your background |
+| `data/interview-star-examples.md` | STAR examples from your experience |
+| `data/cv/main_example.tex` | Your LaTeX CV with actual details |
+| `data/search-queries.md` | Job search queries for `/ai-job-scrape` |
 
 ### Re-running setup
 
@@ -209,7 +209,7 @@ Make sure Bun is installed and you ran `bun install` in each CLI directory. The 
 - Make sure your LaTeX distribution includes the `moderncv` package
 
 ### Fonts not found in cover letter
-The cover letter template expects fonts in `cover_letters/OpenFonts/fonts/`. Make sure this directory exists and contains the Lato and Raleway font files.
+The cover letter template expects fonts in `data/cover-letters/OpenFonts/fonts/`. Make sure this directory exists and contains the Lato and Raleway font files.
 
 ### Stale `.opencode/settings.local.json` from an older clone
 opencode permissions now live in `opencode.json` at the repo root. Earlier versions of this repo committed a broader `.opencode/settings.local.json` that pre-approved `Bash(curl:*)`, `Bash(python:*)` and `Bash(bun:*)`. If you cloned before that change, git leaves the old file behind in your working copy. Delete it:

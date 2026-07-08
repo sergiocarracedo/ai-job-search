@@ -25,7 +25,7 @@ Parse the user's response and dispatch to the relevant skills/CLI tools in paral
 
 ### Denmark
 ```bash
-cd .agents/skills/jobindex-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords from .agents/skills/job-scraper/search-queries.md>" --jobage 14 --sort date --format json
+cd .agents/skills/jobindex-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords from data/search-queries.md>" --jobage 14 --sort date --format json
 
 cd .agents/skills/jobbank-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --jobage 14 --format json
 
@@ -34,7 +34,7 @@ cd .agents/skills/jobdanmark-search/cli && bun run src/cli.ts search --query "<P
 cd .agents/skills/jobnet-search/cli && bun run src/cli.ts search --query "<Priority-1 keywords>" --jobage 14 --format json
 ```
 
-Use Priority 1 (and optionally Priority 2) keywords from `.agents/skills/job-scraper/search-queries.md`. Extract 3-5 of the most important role/skill terms.
+Use Priority 1 (and optionally Priority 2) keywords from `data/search-queries.md`. Extract 3-5 of the most important role/skill terms.
 
 ### Spain
 ```bash
@@ -54,8 +54,8 @@ cd .agents/skills/weworkremotely-search/cli && bun run src/cli.ts search --query
 
 1. Parse all JSON outputs from the tools that ran
 2. Skip any tool that returned an error or empty results
-3. Deduplicate: skip jobs where the URL or company+title combo already exists in `job_scraper/seen_jobs.json`
-4. Skip jobs where company+role already appears in `job_search_tracker.csv`
+3. Deduplicate: skip jobs where the URL or company+title combo already exists in `data/scraper-state/seen_jobs.json`
+4. Skip jobs where company+role already appears in `data/tracker.csv`
 5. Sort by fit (infer from keyword match against search-queries.md priorities)
 
 Present:

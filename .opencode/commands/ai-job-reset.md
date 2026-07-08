@@ -42,26 +42,26 @@ Before doing anything, show the user precisely what will be wiped.
 
 Read the current state of these files and report whether each has content or is already empty:
 
-- `.agents/skills/job-application-assistant/01-candidate-profile.md`
-- `.agents/skills/job-application-assistant/02-behavioral-profile.md`
+- `data/candidate-profile.md`
+- `data/behavioral-profile.md`
 - `.agents/skills/job-application-assistant/05-cv-templates.md` *(profile statements section only — framework structure is preserved)*
-- `.agents/skills/job-application-assistant/07-interview-prep.md` *(STAR examples and STAR candidates sections only — framework structure is preserved)*
+- `data/interview-star-examples.md` *(STAR examples and STAR candidates sections only — framework structure is preserved)*
 
 Present as:
 
 ```
 ## Profile reset will clear:
 
-- 01-candidate-profile.md — [has content / already empty]
+- data/candidate-profile.md — [has content / already empty]
   Full file will be replaced with a blank template.
 
-- 02-behavioral-profile.md — [has content / already empty]
+- data/behavioral-profile.md — [has content / already empty]
   Full file will be replaced with a blank template.
 
-- 05-cv-templates.md — [has profile statements / already blank]
+- .agents/skills/job-application-assistant/05-cv-templates.md — [has profile statements / already blank]
   Profile statement templates will be cleared. LaTeX structure and tailoring guidelines are preserved.
 
-- 07-interview-prep.md — [has STAR examples / already blank]
+- data/interview-star-examples.md — [has STAR examples / already blank]
   STAR examples and any STAR candidate stubs will be cleared. Framework, tough questions, and roleplay guidelines are preserved.
 
 The following files are NOT touched (they contain framework rules, not candidate data):
@@ -118,7 +118,7 @@ Wait for the user's response.
 
 ### Profile reset
 
-**For `01-candidate-profile.md`**, replace the file content with:
+**For `data/candidate-profile.md`**, replace the file content with:
 
 ```markdown
 # Candidate Profile
@@ -142,7 +142,7 @@ Wait for the user's response.
 ## References
 ```
 
-**For `02-behavioral-profile.md`**, replace the file content with:
+**For `data/behavioral-profile.md`**, replace the file content with:
 
 ```markdown
 # Behavioral Profile
@@ -174,7 +174,7 @@ Wait for the user's response.
 
 Leave all other content in `05-cv-templates.md` intact.
 
-**For `07-interview-prep.md`**, locate and remove:
+**For `data/interview-star-examples.md`**, locate and remove:
 - The entire `## Ready-Made STAR Examples` section and all numbered STAR examples under it
 - Any `## STAR Candidates (Complete Manually)` section added by `/setup` Path A
 
