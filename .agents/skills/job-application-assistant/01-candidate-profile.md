@@ -1,7 +1,7 @@
 # Candidate Profile
 
 <!-- SETUP: This file is populated by running /ai-job-setup -->
-<!-- After running /setup, all sections will be filled with your actual information -->
+<!-- After running /ai-job-setup, all sections will be filled with your actual information -->
 
 ## Identity
 

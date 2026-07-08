@@ -4,7 +4,7 @@ description: Onboard a candidate profile from the documents folder, a single CV 
 
 # /setup - Profile Onboarding
 
-You are running the onboarding setup for the AI Job Search framework. Your goal is to collect the user's professional information and populate all profile files so the `/apply` workflow works out of the box.
+You are running the onboarding setup for the AI Job Search framework. Your goal is to collect the user's professional information and populate all profile files so the `/ai-job-apply` workflow works out of the box.
 
 There are three paths into setup. Step 0 picks the right one; all three converge on Step 3 (file generation) and Step 4 (confirmation).
 
@@ -226,7 +226,7 @@ Documents cover skills, experience, education, references, and behavioral signal
 - Commute or location constraints (if not visible from CV)
 - Job search configuration (use the questions from Path C Section 9 below)
 
-Then proceed to Step 3 to populate the non-skill files (`CLAUDE.md`, `cv/main_example.tex`, `.agents/skills/job-scraper/search-queries.md`). Step 3 will detect that the seven skill files are already populated and skip those substeps.
+Then proceed to Step 3 to populate the non-skill files (`AGENTS.md`, `cv/main_example.tex`, `.agents/skills/job-scraper/search-queries.md`). Step 3 will detect that the seven skill files are already populated and skip those substeps.
 
 ---
 

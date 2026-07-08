@@ -5,7 +5,7 @@ description: >
   Search for remote jobs on RemoteOK (remoteok.com). Use whenever the user wants to find
   remote work, work-from-anywhere positions, or explicitly asks about RemoteOK. Triggers on:
   "remote jobs", "work from anywhere", "remoteok", "remote job sites", "find remote work",
-  /scrape remote, /scrape remote jobs. Personal use only — automated scraping against
+  /ai-job-scrape remote, /ai-job-scrape remote jobs. Personal use only — automated scraping against
   RemoteOK is at the user's own risk per RemoteOK's ToS.
 ---
 

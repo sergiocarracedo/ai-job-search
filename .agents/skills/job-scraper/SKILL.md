@@ -2,7 +2,7 @@
 name: job-scraper
 description: >
   Searches configured job portals by market and presents new matches with a fit assessment.
-  Deduplicates across runs. Triggers on: /scrape, /ai-job-scrape, scrape jobs, find jobs, job search
+  Deduplicates across runs. Triggers on: /ai-job-scrape, /scrape, scrape jobs, find jobs, job search
 ---
 
 # Job Scraper
@@ -23,7 +23,7 @@ The user triggers this skill by saying things like:
 
 Optional arguments:
 - A market flag: `--market denmark`, `--market spain`, `--market remote`, or `--market all` (default: ask user)
-- A focus area, e.g. "/scrape data science" or "/scrape geophysics"
+- A focus area, e.g. "/ai-job-scrape data science" or "/ai-job-scrape geophysics"
 
 ---
 

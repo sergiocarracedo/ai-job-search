@@ -202,7 +202,7 @@ If you prefer editing files directly instead of using `/ai-job-setup`:
 
 | File | What to change |
 |------|---------------|
-| `CLAUDE.md` | Your full profile (name, education, experience, skills, goals) |
+| `AGENTS.md` | Your full profile (name, education, experience, skills, goals) |
 | `01-candidate-profile.md` | Structured version of your CV data |
 | `02-behavioral-profile.md` | Your behavioral assessment or self-assessment |
 | `04-job-evaluation.md` | Skill match areas, career goals, motivation filters |

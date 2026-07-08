@@ -4,7 +4,7 @@ version: 1.0.0
 description: >
   Search for remote jobs on We Work Remotely (weworkremotely.com). Use whenever the user wants
   to find remote work or asks about WeWorkRemotely. Triggers on: "we work remotely", "weworkremotely",
-  "wwr", "remote jobs", "work from anywhere", /scrape remote, /scrape remote jobs.
+  "wwr", "remote jobs", "work from anywhere", /ai-job-scrape remote, /ai-job-scrape remote jobs.
   Personal use only — check weworkremotely.com/robots.txt before automated scraping.
 ---
 

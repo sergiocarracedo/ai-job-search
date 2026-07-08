@@ -2,7 +2,7 @@
 name: upskill
 description: >
   Compares tracked job postings against the candidate profile to identify skill gaps and generate
-  a prioritized learning plan with study resources. Triggers on: /upskill, ai-job-upskill, skill gaps,
+  a prioritized learning plan with study resources. Triggers on: /ai-job-upskill, skill gaps,
   what should I learn, learning plan
 ---
 
@@ -12,12 +12,12 @@ description: >
 
 ## Overview
 
-`/upskill` analyses jobs you have tracked and your current profile to identify skill gaps, then produces a heatmap of those gaps and a learning plan with concrete, web-searched study resources and a recommended study order.
+`/ai-job-upskill` analyses jobs you have tracked and your current profile to identify skill gaps, then produces a heatmap of those gaps and a learning plan with concrete, web-searched study resources and a recommended study order.
 
 ## Invocation
 
-- **`/upskill`** — aggregate mode: analyses all jobs in `job_search_tracker.csv`
-- **`/upskill <URL>`** — targeted mode: analyses a single job posting fetched from the URL
+- **`/ai-job-upskill`** — aggregate mode: analyses all jobs in `job_search_tracker.csv`
+- **`/ai-job-upskill <URL>`** — targeted mode: analyses a single job posting fetched from the URL
 
 ---
 
@@ -25,8 +25,8 @@ description: >
 
 Check whether the user provided a URL argument:
 
-- If the invocation was `/upskill` with no argument → **aggregate mode**
-- If the invocation was `/upskill <URL>` → **targeted mode**, store the URL for Step 2
+- If the invocation was `/ai-job-upskill` with no argument → **aggregate mode**
+- If the invocation was `/ai-job-upskill <URL>` → **targeted mode**, store the URL for Step 2
 
 In targeted mode, derive a slug from the job title and company for the report filename (e.g. `guardsix-senior-ai-engineer`). You will fetch the posting in Step 2.
 

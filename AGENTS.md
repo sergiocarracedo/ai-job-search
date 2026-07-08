@@ -123,7 +123,7 @@ After creating or updating a CV or cover letter, re-read the generated file and 
 
 ### Factual accuracy
 
-- [ ] All claims match actual profile (CLAUDE.md / candidate profile) - no fabricated skills, experience, or achievements
+- [ ] All claims match actual profile (AGENTS.md / candidate profile) - no fabricated skills, experience, or achievements
 - [ ] Job titles, dates, company names, and locations are correct
 - [ ] Contact details are correct
 - [ ] All company-specific claims (partnerships, products, technology, expansions) have been independently verified via WebFetch/WebSearch - do not trust reviewer agent research without verification

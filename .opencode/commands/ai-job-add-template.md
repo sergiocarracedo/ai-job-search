@@ -61,7 +61,7 @@ Collect:
    - **Bundled font files** (`.ttf`/`.otf` shipped with the template): copy them into the template folder in Step 3 and record the relative `Path` used in `\fontspec` calls.
    - **System / TeX-distribution fonts**: record the font name and note that the user's machine must have it installed.
 4. **Style rules** - anything the drafter must preserve when filling the template: color scheme, section order, heading style, spacing conventions, bullet formatting, date format.
-5. **Page limit** - hard page count for the compiled PDF. Default: **2 pages** for a CV, **1 page** for a cover letter. `/apply`'s compile-and-inspect loop enforces this.
+5. **Page limit** - hard page count for the compiled PDF. Default: **2 pages** for a CV, **1 page** for a cover letter. `/ai-job-apply`'s compile-and-inspect loop enforces this.
 6. **Known pitfalls** (optional) - macros that break with certain content (like the stock template's `\lettercontent{}`/`itemize` interaction), characters that need escaping, sections that must not be reordered.
 
 ---
@@ -124,7 +124,7 @@ Do not proceed to Step 5 until the test compile passes.
 
 ## Step 5: Activate the Template
 
-Activation wires the template into `/apply` by adding a **managed block** to the top of the relevant guidance file — `05-cv-templates.md` for CVs, `06-cover-letter-templates.md` for cover letters. `/apply` reads these files in its drafting step, so the block is all it takes.
+Activation wires the template into `/apply` by adding a **managed block** to the top of the relevant guidance file — `05-cv-templates.md` for CVs, `06-cover-letter-templates.md` for cover letters. `/ai-job-apply` reads these files in its drafting step, so the block is all it takes.
 
 Insert (or replace, if one exists) this block immediately after the file's H1 title:
 
@@ -159,7 +159,7 @@ Present a summary:
 >
 > - Files: `templates/<type>/<name>/` (skeleton, manifest<, class files><, fonts>)
 > - Test compile: passed with `<engine>` (<N> page(s))
-> - `/apply` will now draft <CVs | cover letters> from this template.
+> - `/ai-job-apply` will now draft <CVs | cover letters> from this template.
 >
 > Useful follow-ups:
 > - `/add-template --list` — see all registered templates
@@ -172,5 +172,5 @@ Present a summary:
 
 - Registration is idempotent: re-running with the same name offers to update the existing template rather than duplicating it.
 - Templates are stored profile-agnostic (`[PLACEHOLDER]` tokens) so they can be shared or committed without leaking personal data.
-- The compile check in Step 4 is non-negotiable — a template that has never compiled will fail mid-`/apply`, which is the worst place to discover it.
-- Activation is a small managed block, not a rewrite of the guidance files: `/setup` and manual edits to `05`/`06` survive template switches, and `--use default` is a clean revert.
+- The compile check in Step 4 is non-negotiable — a template that has never compiled will fail mid-`/ai-job-apply`, which is the worst place to discover it.
+- Activation is a small managed block, not a rewrite of the guidance files: `/ai-job-setup` and manual edits to `05`/`06` survive template switches, and `--use default` is a clean revert.
