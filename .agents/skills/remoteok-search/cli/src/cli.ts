@@ -1,4 +1,5 @@
-import { search, detail } from "./commands/search.js"
+import { runSearch as search } from "./commands/search.js"
+import { runDetail as detail } from "./commands/detail.js"
 import { parseArgs } from "util"
 
 const args = process.argv.slice(2)

@@ -54,18 +54,18 @@ The CV compiles with `lualatex` (pdflatex often fails on modern MiKTeX installs 
 
 ### Optional: pdftotext (for the ATS check)
 
-`/apply` runs an ATS parseability check on the compiled CV: it extracts the PDF's text layer and verifies contact details, reading order, and keyword coverage the way an applicant-tracking system sees them. This uses `pdftotext` from [poppler](https://poppler.freedesktop.org/), which is not part of TeX distributions:
+`/ai-job-apply` runs an ATS parseability check on the compiled CV: it extracts the PDF's text layer and verifies contact details, reading order, and keyword coverage the way an applicant-tracking system sees them. This uses `pdftotext` from [poppler](https://poppler.freedesktop.org/), which is not part of TeX distributions:
 
 - **macOS:** `brew install poppler`
 - **Debian/Ubuntu:** `sudo apt install poppler-utils`
 - **Windows:** `choco install poppler`
 
-If `pdftotext` is missing, `/apply` skips the mechanical check with a warning and falls back to a visual keyword review — everything else works normally.
+If `pdftotext` is missing, `/ai-job-apply` skips the mechanical check with a warning and falls back to a visual keyword review — everything else works normally.
 
 ## 2. Fork and clone
 
 ```bash
-gh repo fork MadsLorentzen/ai-job-search --clone
+gh repo fork sergiocarracedo/ai-job-search --clone
 cd ai-job-search
 ```
 
@@ -94,7 +94,7 @@ done
 
 For `linkedin-search` the install is optional: it has zero runtime dependencies and runs with plain `bun`; `bun install` only pulls TypeScript dev types.
 
-If you're outside Denmark, you can generate an equivalent search skill for your local job board with `/add-portal` — it scaffolds the same CLI structure for any public portal and test-runs a live query before registering. See the "Job search tools" section in the README.
+If you're outside Denmark, you can generate an equivalent search skill for your local job board with `/ai-job-add-portal` — it scaffolds the same CLI structure for any public portal and test-runs a live query before registering. See the "Job search tools" section in the README.
 
 ## 4. Run the setup interview
 
@@ -107,7 +107,7 @@ claude
 Then run the onboarding:
 
 ```
-/setup
+/ai-job-setup
 ```
 
 Claude will offer three paths:
@@ -136,9 +136,9 @@ All three paths produce the same result: fully populated profile files.
 You can update specific sections later:
 
 ```
-/setup --section skills
-/setup --section experience
-/setup --section search
+/ai-job-setup --section skills
+/ai-job-setup --section experience
+/ai-job-setup --section search
 ```
 
 The `--section search` option is especially useful as your priorities evolve. It re-runs the search configuration interview and suggests role types you may not have considered based on your full profile.
@@ -154,20 +154,20 @@ If you have salary data (from a union, salary survey, Glassdoor, or personal res
    python tools/convert_salary_excel.py path/to/salary-data.xlsx --source "My Salary Data 2025"
    ```
 
-This creates `salary_data.json` which the `/apply` workflow uses for salary benchmarking. If you skip this step, salary lookup is simply omitted.
+This creates `salary_data.json` which the `/ai-job-apply` workflow uses for salary benchmarking. If you skip this step, salary lookup is simply omitted.
 
 ## 6. Test the workflow
 
 Find a job posting you're interested in, then:
 
 ```
-/apply https://jobindex.dk/job/1234567
+/ai-job-apply https://jobindex.dk/job/1234567
 ```
 
 Or paste the job description directly:
 
 ```
-/apply [paste job posting text here]
+/ai-job-apply [paste job posting text here]
 ```
 
 Claude will:
@@ -179,7 +179,7 @@ Claude will:
 
 ## 7. Compile your documents
 
-After `/apply` creates the LaTeX files:
+After `/ai-job-apply` creates the LaTeX files:
 
 ```bash
 # Bash / zsh / Git Bash
@@ -193,12 +193,12 @@ Set-Location cv; lualatex main_<company>.tex; Set-Location ..
 Set-Location cover_letters; xelatex cover_<company>_<role>.tex; Set-Location ..
 ```
 
-These commands apply to the stock templates (moderncv CV, `cover.cls` cover letter). If you'd rather use your own LaTeX template, run `/add-template` — it captures the template's compile engine, fonts, style rules, and page limit, test-compiles it, and wires it into `/apply`. See the "LaTeX templates" section in the README.
+These commands apply to the stock templates (moderncv CV, `cover.cls` cover letter). If you'd rather use your own LaTeX template, run `/ai-job-add-template` — it captures the template's compile engine, fonts, style rules, and page limit, test-compiles it, and wires it into `/ai-job-apply`. See the "LaTeX templates" section in the README.
 
 ## Troubleshooting
 
 ### "salary_data.json not found"
-This is expected if you haven't set up salary benchmarking. The `/apply` workflow skips this step automatically.
+This is expected if you haven't set up salary benchmarking. The `/ai-job-apply` workflow skips this step automatically.
 
 ### Job search CLI tools not working
 Make sure Bun is installed and you ran `bun install` in each CLI directory. The tools require network access to fetch job listings.
@@ -212,7 +212,7 @@ Make sure Bun is installed and you ran `bun install` in each CLI directory. The 
 The cover letter template expects fonts in `cover_letters/OpenFonts/fonts/`. Make sure this directory exists and contains the Lato and Raleway font files.
 
 ### Stale `.claude/settings.local.json` from an older clone
-Shared Claude Code permissions now live in `.claude/settings.json` (scoped to `bun run` and `python salary_lookup.py`). Earlier versions of this repo committed a broader `.claude/settings.local.json` that pre-approved `Bash(curl:*)`, `Bash(python:*)` and `Bash(bun:*)`. If you cloned before that change, git leaves the old file behind in your working copy, and its permissions still apply on top of `settings.json`. Delete it (or trim it to your own personal overrides):
+opencode permissions now live in `opencode.json` at the repo root. Earlier versions of this repo committed a broader `.claude/settings.local.json` that pre-approved `Bash(curl:*)`, `Bash(python:*)` and `Bash(bun:*)`. If you cloned before that change, git leaves the old file behind in your working copy. Delete it:
 
 ```bash
 rm .claude/settings.local.json

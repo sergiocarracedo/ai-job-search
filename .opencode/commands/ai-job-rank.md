@@ -2,11 +2,11 @@
 description: Batch-score scraped jobs against the candidate's fit framework and return a ranked shortlist.
 ---
 
-# /rank - Triage Scraped Jobs into a Ranked Shortlist
+# /ai-job-rank - Triage Scraped Jobs into a Ranked Shortlist
 
-You are batch-scoring the jobs that `/scrape` has collected, so the user can decide where to spend `/apply` effort. `/scrape` finds and dedupes postings; `/apply` evaluates one at a time in depth. `/rank` is the bridge: it scores every new posting against the fit framework and returns a ranked shortlist.
+You are batch-scoring the jobs that `/ai-job-scrape` has collected, so the user can decide where to spend `/ai-job-apply` effort. `/ai-job-scrape` finds and dedupes postings; `/ai-job-apply` evaluates one at a time in depth. `/ai-job-rank` is the bridge: it scores every new posting against the fit framework and returns a ranked shortlist.
 
-`/rank` produces **triage scores**, not final evaluations. It scores from the posting text and the candidate profile only - no company research, no reviewer agent. `/apply`'s Step 1 evaluation (which adds company research) remains authoritative and always re-runs when the user applies.
+`/ai-job-rank` produces **triage scores**, not final evaluations. It scores from the posting text and the candidate profile only - no company research, no reviewer agent. `/ai-job-apply`'s Step 1 evaluation (which adds company research) remains authoritative and always re-runs when the user applies.
 
 Follow these steps **in order**.
 
@@ -17,7 +17,7 @@ Follow these steps **in order**.
 `$ARGUMENTS` may contain:
 
 - Nothing → rank all jobs with status `new` in `job_scraper/seen_jobs.json`
-- A focus area (e.g. `/rank data science`) → rank only jobs whose title or stored fit-notes match the focus
+- A focus area (e.g. `/ai-job-rank data science`) → rank only jobs whose title or stored fit-notes match the focus
 - `--all` → re-rank every job that has not been applied to, including previously ranked ones (useful after the profile changes)
 - `--top <N>` → shortlist size (default 5)
 
@@ -39,11 +39,11 @@ State how many jobs will be ranked before proceeding.
 
 ## Step 2: Batch-Fetch and Score
 
-Dispatch parallel `general-purpose` agents via the **Task tool** with `subagent_type: general`, ~5 jobs per agent (a single agent is fine for ≤5 jobs). Token-efficiency rules, consistent with `/apply`:
+Dispatch parallel `general-purpose` agents via the **Task tool** with `subagent_type: general`, ~5 jobs per agent (a single agent is fine for ≤5 jobs). Token-efficiency rules, consistent with `/ai-job-apply`:
 
 - Pass each agent everything it needs **inline in the prompt** - the job list (title, company, URL) and a compact scoring rubric extracted from the files you read in Step 1: the strong/moderate/weak skill match areas, direct/adjacent experience domains, behavioral thrive/drain factors, career goals, deal-breakers, and the location constraints. Do **not** make agents re-read the profile files.
 - Agents fetch each posting URL with WebFetch and score **only from actually fetched content**. If a URL is dead, redirects to a listing page, or the posting has expired, the agent marks that job `expired` - it never scores from the title alone and never fabricates posting content.
-- Scope is triage: posting text vs. rubric. **No company research, no salary lookup, no web searches** - that depth belongs to `/apply`.
+- Scope is triage: posting text vs. rubric. **No company research, no salary lookup, no web searches** - that depth belongs to `/ai-job-apply`.
 
 Each agent returns a JSON array, one object per job:
 
@@ -84,7 +84,7 @@ Update `job_scraper/seen_jobs.json` in place - these fields are additive to the 
 - Ranked jobs: set `"status": "ranked"` and add `"rank_score": <overall>`, `"rank_verdict": "<band>"`, `"rank_date": "YYYY-MM-DD"`
 - Dead or past-deadline jobs: set `"status": "expired"`
 
-Do not modify `job_search_tracker.csv` - that file records applications, and `/rank` never applies. Re-running `/rank` is idempotent: already-`ranked` jobs are skipped unless `--all` re-scores them.
+Do not modify `job_search_tracker.csv` - that file records applications, and `/ai-job-rank` never applies. Re-running `/ai-job-rank` is idempotent: already-`ranked` jobs are skipped unless `--all` re-scores them.
 
 ---
 
@@ -116,16 +116,16 @@ Ranked <N> new postings (<X> shortlisted, <Y> below threshold, <Z> expired/vetoe
 Rules for the presentation:
 
 - Every claim traces to fetched posting text or the profile - no invented details.
-- Say explicitly that these are **triage scores from the posting text only**, and that `/apply` will re-evaluate with company research before anything is drafted.
-- Then ask: "Want to apply to any of these? Give me the number(s) and I'll start with the full `/apply` workflow."
-- If the user picks one, run the `/apply` workflow on that job's URL, passing the triage verdict as prior context but **re-running the full Step 1 evaluation** - triage never substitutes for it.
+- Say explicitly that these are **triage scores from the posting text only**, and that `/ai-job-apply` will re-evaluate with company research before anything is drafted.
+- Then ask: "Want to apply to any of these? Give me the number(s) and I'll start with the full `/ai-job-apply` workflow."
+- If the user picks one, run the `/ai-job-apply` workflow on that job's URL, passing the triage verdict as prior context but **re-running the full Step 1 evaluation** - triage never substitutes for it.
 
 ---
 
 ## Important Rules
 
 1. **Never rank unfetched postings.** A job whose posting cannot be retrieved is marked expired, not guessed at.
-2. **Triage depth only.** No company research, no salary lookups, no reviewer agents - `/rank` exists to be cheap enough to run on every scrape batch.
+2. **Triage depth only.** No company research, no salary lookups, no reviewer agents - `/ai-job-rank` exists to be cheap enough to run on every scrape batch.
 3. **Deal-breakers veto scores.** A 90-point job that fails a location deal-breaker is excluded, not ranked first.
 4. **Honest scoring.** Gaps are reported per job; a low-scoring posting is presented as such. The score bands and weights come from `04-job-evaluation.md` - if the user disagrees with a ranking, the fix is updating their profile or the framework, not bending scores.
-5. **State stays consistent.** `seen_jobs.json` fields are only added, never restructured, so `/scrape`'s dedup keeps working; the tracker is read-only for this command.
+5. **State stays consistent.** `seen_jobs.json` fields are only added, never restructured, so `/ai-job-scrape`'s dedup keeps working; the tracker is read-only for this command.

@@ -47,7 +47,7 @@ The framework encodes career guidance best practices, including structured evalu
 ### 1. Fork and clone
 
 ```bash
-gh repo fork MadsLorentzen/ai-job-search --clone
+gh repo fork sergiocarracedo/ai-job-search --clone
 cd ai-job-search
 ```
 
@@ -63,7 +63,7 @@ cd .agents/skills/remoteok-search/cli && bun install && cd ../../../..
 cd .agents/skills/weworkremotely-search/cli && bun install && cd ../../../..
 ```
 
-For `linkedin-search`, `remoteok-search`, and `weworkremotely-search` the install is optional: they have zero runtime dependencies and run with plain `bun`; `bun install` only pulls TypeScript dev types.
+`linkedin-search`, `remoteok-search`, and `weworkremotely-search` have zero runtime dependencies — `bun install` only pulls TypeScript dev types and is optional for those.
 
 ### 3. Set up your profile
 
