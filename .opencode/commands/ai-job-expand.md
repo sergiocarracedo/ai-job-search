@@ -25,30 +25,30 @@ Hold this content in context throughout the command. Do not re-read these files 
 
 Scan every available source for "experience items" — anything that implies skill, knowledge, or competency. Process sources in this order.
 
-### 1a. documents/cv/
-Read all files in `documents/cv/`. Extract:
+### 1a. data/documents/cv/
+Read all files in `data/documents/cv/`. Extract:
 - Every course or module listed (including university coursework and online courses)
 - Every certification mentioned, with issuer and date
 - Every job responsibility bullet point (tools, methods, outcomes)
 - Every independent project or side project
 - Every volunteer or extracurricular role
 
-### 1b. documents/linkedin/
-Read all files in `documents/linkedin/`. Extract:
+### 1b. data/documents/linkedin/
+Read all files in `data/documents/linkedin/`. Extract:
 - Courses and certifications in the "Licenses & Certifications" section
 - Skills and endorsements list
 - Volunteer experiences
 - Projects section
 - Any platform-specific items not already found in the CV
 
-### 1c. documents/diplomas/
-Read all files in `documents/diplomas/`. Extract:
+### 1c. data/documents/diplomas/
+Read all files in `data/documents/diplomas/`. Extract:
 - All course/module names listed on transcripts
 - Thesis title and subject area
 - Any specialisation or track name
 
-### 1d. documents/references/
-Read all files in `documents/references/`. Extract:
+### 1d. data/documents/references/
+Read all files in `data/documents/references/`. Extract:
 - Competency language used by the referee (what skills or qualities they mention)
 - Any specific projects, tools, or methods named
 

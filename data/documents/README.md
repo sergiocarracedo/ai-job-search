@@ -1,13 +1,13 @@
 # Documents Folder
 
-This folder holds your actual career documents. The `/ai-job-setup` command reads everything here and uses it to populate the candidate skill files under `.agents/skills/job-application-assistant/`. It is safe to re-run `/ai-job-setup` as you add new documents — it merges intelligently and will never overwrite existing content without asking you first.
+This folder holds your actual career documents. The `/ai-job-setup` command reads everything here and uses it to populate the candidate profile files under `data/`. It is safe to re-run `/ai-job-setup` as you add new documents — it merges intelligently and will never overwrite existing content without asking you first.
 
 ---
 
 ## Folder Structure
 
 ```
-documents/
+data/documents/
 ├── cv/                          # Your CV files (PDF or LaTeX)
 ├── linkedin/                    # LinkedIn profile export (PDF)
 ├── diplomas/                    # Degree certificates and transcripts
@@ -88,8 +88,8 @@ Reference letters from former managers, supervisors, or collaborators.
 
 **What `/ai-job-setup` extracts:**
 - Referee name, title, and organization
-- Specific quotes and assessments (added to the references section of `01-candidate-profile.md`)
-- Competency language used by referees (adds behavioral signal to `02-behavioral-profile.md`)
+- Specific quotes and assessments (added to the references section of `data/candidate-profile.md`)
+- Competency language used by referees (adds behavioral signal to `data/behavioral-profile.md`)
 
 **Naming:** Use the referee's name, e.g. `reference_ole_frandsen.pdf`.
 
@@ -111,11 +111,11 @@ applications/
 
 ### Files within each application folder
 
-**`job_posting.md`** — Paste the full job posting text here. Used by `/ai-job-setup` to infer which skills and role types you have targeted, and to calibrate `04-job-evaluation.md`.
+**`job_posting.md`** — Paste the full job posting text here. Used by `/ai-job-setup` to infer which skills and role types you have targeted, and to calibrate `.agents/skills/job-application-assistant/04-job-evaluation.md`.
 
-**`cover_letter.tex`** — The cover letter you actually submitted. Used to extract writing style patterns and structure for `06-cover-letter-templates.md`.
+**`cover_letter.tex`** — The cover letter you actually submitted. Used to extract writing style patterns and structure for `.agents/skills/job-application-assistant/06-cover-letter-templates.md`.
 
-**`cv_draft.tex`** — The CV variant you submitted. Used to extract profile statement styles for `05-cv-templates.md`.
+**`cv_draft.tex`** — The CV variant you submitted. Used to extract profile statement styles for `.agents/skills/job-application-assistant/05-cv-templates.md`.
 
 **`outcome.md`** — Fill this in after the application resolves. Format:
 
@@ -141,7 +141,7 @@ Any signal about what they valued or didn't?
 
 **What `/ai-job-setup` learns from outcome.md:**
 - Which role types and companies have led to interviews (signals strong fit areas)
-- Which applications did not progress (informs the experience match calibration in `04-job-evaluation.md`)
+- Which applications did not progress (informs the experience match calibration in `.agents/skills/job-application-assistant/04-job-evaluation.md`)
 - Interview feedback, if you recorded it, can surface new STAR candidates
 
 ---

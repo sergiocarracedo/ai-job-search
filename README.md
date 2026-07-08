@@ -73,7 +73,7 @@ opencode
 /ai-job-setup
 ```
 
-`/ai-job-setup` offers three paths: read your `documents/` folder if you have one populated (CV PDF, LinkedIn export, diplomas, reference letters, past applications), import a single CV pasted in chat, or walk through an interview. It auto-detects what you have and asks. Documents-folder mode is idempotent and safe to re-run as you add more material; see `documents/README.md` for the layout.
+`/ai-job-setup` offers three paths: read your `data/documents/` folder if you have one populated (CV PDF, LinkedIn export, diplomas, reference letters, past applications), import a single CV pasted in chat, or walk through an interview. It auto-detects what you have and asks. Documents-folder mode is idempotent and safe to re-run as you add more material; see `data/documents/README.md` for the layout.
 
 ### 4. Search for jobs
 
@@ -160,7 +160,7 @@ ai-job-search/
 
 ├── templates/                         # Custom templates registered via /ai-job-add-template
 │   └── README.md                      # Folder layout instructions
-├── documents/                         # Career source materials for /ai-job-setup Path A and /ai-job-expand
+├── data/documents/                         # Career source materials for /ai-job-setup Path A and /ai-job-expand
 │   ├── README.md                      # Folder layout instructions
 │   ├── cv/                            # Master CV (PDF or .tex)
 │   ├── linkedin/                      # LinkedIn profile export (PDF)
@@ -264,7 +264,7 @@ To wipe your profile data and start fresh:
 
 ```
 /ai-job-reset profile    # clears skill files, preserves framework rules
-/ai-job-reset documents  # deletes files from documents/ folder
+/ai-job-reset documents  # deletes files from data/documents/ folder
 /ai-job-reset all        # both
 ```
 
@@ -278,7 +278,7 @@ The single biggest factor in output quality is how much detail you put into your
 
 - **Role descriptions:** Don't just list job titles. Describe what you actually did in each position: specific projects, tools used, responsibilities, and measurable achievements. The more material you provide, the more precisely the system can reframe your experience for different roles.
 - **Skills in context:** Instead of listing "Python" or "project management," describe how and where you applied them. "Built ML pipelines for customer churn prediction in Python using scikit-learn" gives the system far more to work with than "Python, machine learning."
-- **All onboarding paths work:** Whether you point `/ai-job-setup` at your `documents/` folder, paste a single CV, or walk through the interview, the principle is the same: richer input produces sharper output.
+- **All onboarding paths work:** Whether you point `/ai-job-setup` at your `data/documents/` folder, paste a single CV, or walk through the interview, the principle is the same: richer input produces sharper output.
 
 ### Career path discovery
 

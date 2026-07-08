@@ -112,7 +112,7 @@ Then run the onboarding:
 
 opencode will offer three paths:
 
-- **Path A (documents folder):** Add your CV, LinkedIn export, diplomas, references, or past applications under `documents/`. opencode reads and cross-references them before proposing profile updates. This is best when you have several source files.
+- **Path A (documents folder):** Add your CV, LinkedIn export, diplomas, references, or past applications under `data/documents/`. opencode reads and cross-references them before proposing profile updates. This is best when you have several source files.
 - **Path B (single CV import):** Share one CV/resume by mentioning the file with `@` or pasting the text. opencode extracts it and asks follow-up questions for anything missing.
 - **Path C (interview mode):** Answer structured interview questions section by section.
 
