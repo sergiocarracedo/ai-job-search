@@ -1,0 +1,66 @@
+AGENTS.md
+  s_5b1bd35d3769e4::t_8a693b00a57f9e 126
+.agents/skills/job-application-assistant/07-interview-prep.md
+  s_5b1bd35d3769e4::t_3607d16397ea1b 13
+  s_5b1bd35d3769e4::t_89ce20174f4dde 3
+.opencode/commands/ai-job-add-template.md
+  s_5b1bd35d3769e4::t_00877087f2ce27 175
+  s_5b1bd35d3769e4::t_aeeb8472dfe72f 176
+  s_5b1bd35d3769e4::t_b7147fec81419e 64
+  s_5b1bd35d3769e4::t_1ff408105a33f5 162
+  s_5b1bd35d3769e4::t_d25df800512bc5 127
+.agents/skills/job-application-assistant/02-behavioral-profile.md
+  s_5b1bd35d3769e4::t_fd7f2c577d498b 3
+.agents/skills/weworkremotely-search/SKILL.md
+  s_5b1bd35d3769e4::t_f1e5b1a96f822c 7
+.opencode/commands/ai-job-setup.md
+  s_5b1bd35d3769e4::t_568f31ccc49d8c 7
+  s_5b1bd35d3769e4::t_f88adf83620956 229
+.agents/skills/job-application-assistant/01-candidate-profile.md
+  s_5b1bd35d3769e4::t_b2dc33ea7ef32b 4
+.agents/skills/remoteok-search/SKILL.md
+  s_5b1bd35d3769e4::t_f3091327df3f87 8
+.agents/skills/job-application-assistant/05-cv-templates.md
+  s_5b1bd35d3769e4::t_d692d754d549a9 3
+  s_5b1bd35d3769e4::t_2e2a3118f4ba4a 191
+.agents/skills/job-scraper/SKILL.md
+  s_5b1bd35d3769e4::t_e6e2bca5ad655b 26
+  s_5b1bd35d3769e4::t_2c1bdad04ea9e8 5
+README.md
+  s_5b1bd35d3769e4::t_33197992a6ef62 205
+.agents/skills/upskill/SKILL.md
+  s_5b1bd35d3769e4::t_4bcad43fe711c7 28
+  s_5b1bd35d3769e4::t_55dd336e0ec45d 15
+  s_5b1bd35d3769e4::t_072cc03ec9939e 20
+  s_5b1bd35d3769e4::t_24dab5a7742547 5
+  s_5b1bd35d3769e4::t_8cbdc23b498f0c 19
+  s_5b1bd35d3769e4::t_bbcb5a8aec924f 29
+SETUP.md
+  s_5b1bd35d3769e4::t_1dfbb2f81d9c8c 116
+  s_5b1bd35d3769e4::t_aaa4ce27bf546a 115
+  s_5b1bd35d3769e4::t_0816dfff77b281 12,15,104,214-215,218
+  s_5b1bd35d3769e4::t_267b953a893c9c 113
+  s_5b1bd35d3769e4::t_7566f52c78723c 125
+  s_5b1bd35d3769e4::t_b4ef4da2fe8626 173
+  s_5b1bd35d3769e4::t_5921579eec2bb4 132
+.agents/skills/job-application-assistant/04-job-evaluation.md
+  s_5b1bd35d3769e4::t_0ae6bfa55565d8 3
+.agents/skills/job-scraper/search-queries.md
+  s_5b1bd35d3769e4::t_176b2f71b9a064 76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "82d7e3f39a07476c489d6a5c2f76ee40cebcde39",
+  "prompts": {},
+  "sessions": {
+    "s_5b1bd35d3769e4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0c29e3821ffeIKNnjeypHHBZy6",
+        "model": "MiniMax-M3"
+      },
+      "human_author": "Sergio <sergio@local>"
+    }
+  }
+}
