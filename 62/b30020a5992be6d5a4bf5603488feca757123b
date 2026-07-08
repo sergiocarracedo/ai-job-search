@@ -1,0 +1,46 @@
+tools/README_SALARY_TOOL.md
+  s_5b1bd35d3769e4::t_770b634ede00da 5,7,119
+documents/README.md
+  s_5b1bd35d3769e4::t_414b528cf31ea1 41
+  s_5b1bd35d3769e4::t_1a9c3461b7e019 3,32,39,53,63,73,89,114,142,151,162
+.agents/skills/weworkremotely-search/cli/src/cli.ts
+  s_4d6577206e04a1::t_e82283f6c8d7f2 1-2
+.agents/skills/remoteok-search/cli/src/cli.ts
+  s_4d6577206e04a1::t_4d257fd777e426 1-2
+templates/README.md
+  s_5b1bd35d3769e4::t_66e2aa6eab52b5 23
+  s_5b1bd35d3769e4::t_4928051a867a5e 3,22,24
+README.md
+  s_5b1bd35d3769e4::t_405004d0ed9052 50,66
+SETUP.md
+  s_5b1bd35d3769e4::t_9ebacc72350a35 110,139-141
+  s_5b1bd35d3769e4::t_0cc0b99e974827 57,63,157,164,170,182,201
+  s_5b1bd35d3769e4::t_a5c32759109075 97
+  s_5b1bd35d3769e4::t_92adff5875ea85 68
+  s_5b1bd35d3769e4::t_0ca71d1ac0f42a 196
+  s_5b1bd35d3769e4::t_4fafdc80ee9744 215
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "62b30020a5992be6d5a4bf5603488feca757123b",
+  "prompts": {},
+  "sessions": {
+    "s_4d6577206e04a1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0bf691594ffenxjX6pRyPlKNl2",
+        "model": "minimax-m2.7"
+      },
+      "human_author": "Sergio <sergio@local>"
+    },
+    "s_5b1bd35d3769e4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0c29e3821ffeIKNnjeypHHBZy6",
+        "model": "MiniMax-M3"
+      },
+      "human_author": "Sergio <sergio@local>"
+    }
+  }
+}
